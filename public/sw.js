@@ -18,12 +18,23 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-// Fetch listener is required for PWA installation criteria
 self.addEventListener("fetch", (event) => {
-  // Let the browser fetch naturally, fallback to cache if offline
+  if (event.request.method !== "GET") return;
+
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
+    fetch(event.request).catch(async () => {
+      const cached = await caches.match(event.request);
+      if (cached) return cached;
+
+      if (event.request.mode === "navigate") {
+        const shell = await caches.match("/");
+        if (shell) return shell;
+      }
+
+      return new Response("Offline", {
+        status: 503,
+        headers: { "Content-Type": "text/plain" },
+      });
     })
   );
 });
