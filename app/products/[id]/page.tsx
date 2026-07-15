@@ -60,7 +60,7 @@ export default async function ProductDetailPage({ params }: Props) {
   }
 
   const waPrefill = `Hello MSL Biotech, I'd like to enquire about ${product.name} (Composition: ${product.composition}).`;
-  const waLink = `https://wa.me/919999999999?text=${encodeURIComponent(waPrefill)}`;
+  const waLink = `https://wa.me/919859757710?text=${encodeURIComponent(waPrefill)}`;
 
   return (
     <div className="w-full">

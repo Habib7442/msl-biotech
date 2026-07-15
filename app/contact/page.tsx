@@ -147,8 +147,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">Direct Dial</h4>
-                    <a href="tel:+919999999999" className="text-gray-500 hover:text-primary text-xs font-semibold">
-                      +91 99999 99999
+                    <a href="tel:+919859757710" className="text-gray-500 hover:text-primary text-xs font-semibold">
+                      +91 98597 57710
                     </a>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export default function Contact() {
                   Interested in distributing our products or launching a franchise associate store? Use the contact form select "Distributor Partnership" to speak with our business development director.
                 </p>
                 <a
-                  href="https://wa.me/919999999999?text=Hello%20MSL%20Biotech,%20I%20am%20interested%20in%20a%20distributor%20franchise%20partnership."
+                  href="https://wa.me/919859757710?text=Hello%20MSL%20Biotech,%20I%20am%20interested%20in%20a%20distributor%20franchise%20partnership."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80"
@@ -286,7 +286,7 @@ export default function Contact() {
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="99999 99999"
+                          placeholder="98597 57710"
                           disabled={loading}
                           className={`w-full bg-[#F4F7FB] border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${
                             errors.phone

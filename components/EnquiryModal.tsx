@@ -251,7 +251,7 @@ export default function EnquiryModal() {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="99999 99999"
+                      placeholder="98597 57710"
                       disabled={loading}
                       className={`w-full bg-[#F4F7FB] border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${
                         errors.phone
