@@ -97,7 +97,11 @@ export default function Header() {
           <div className="flex items-center gap-4 md:hidden">
             <a
               href="tel:+919859757710"
-              className="flex items-center justify-center p-2 rounded-xl text-primary bg-[#F4F7FB]"
+              className={`flex items-center justify-center p-2 rounded-xl transition-colors ${
+                isScrolled
+                  ? "text-primary bg-[#F4F7FB]"
+                  : "text-white bg-white/10 hover:bg-white/20"
+              }`}
             >
               <Phone className="size-4" />
             </a>
@@ -106,7 +110,11 @@ export default function Header() {
               <SheetTrigger
                 render={
                   <button
-                    className="flex items-center justify-center p-2 rounded-xl text-brand-navy hover:bg-[#F4F7FB] transition-colors cursor-pointer"
+                    className={`flex items-center justify-center p-2 rounded-xl transition-colors cursor-pointer ${
+                      isScrolled
+                        ? "text-brand-navy hover:bg-[#F4F7FB]"
+                        : "text-white hover:bg-white/10"
+                    }`}
                     aria-label="Toggle Menu"
                   />
                 }
