@@ -53,7 +53,7 @@ export default function Header() {
               width={180}
               height={50}
               priority
-              className="h-13 w-auto object-contain"
+              className="h-13 w-auto object-contain rounded-xl overflow-hidden"
             />
           </Link>
 

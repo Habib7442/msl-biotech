@@ -70,7 +70,7 @@ export default function Footer() {
               <img
                 src="/logo.webp"
                 alt="MSL Biotech Logo"
-                className="h-12 w-auto object-contain"
+                className="h-12 w-auto object-contain rounded-xl overflow-hidden"
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">

@@ -45,7 +45,7 @@ export default function Preloader() {
               <motion.img
                 src="/logo.webp"
                 alt="MSL Biotech Logo"
-                className="size-16 object-contain"
+                className="size-16 object-contain rounded-xl overflow-hidden"
                 animate={{ 
                   scale: [1, 1.05, 1],
                 }}
