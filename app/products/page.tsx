@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Search, RotateCcw, ArrowRight, Award, Plus, Check } from "lucide-react";
 import { PRODUCTS, CATEGORIES, Product } from "@/lib/data";
@@ -230,9 +231,19 @@ function ProductsCatalog() {
                       className="group/card bg-white rounded-3xl overflow-hidden border border-gray-100/60 shadow-[0_10px_30px_rgba(18,33,63,0.02)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.05)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                     >
                       
-                      {/* Image Placeholder */}
-                      <div className="aspect-[4/3] bg-gradient-to-br from-primary/5 to-accent/5 p-6 flex items-center justify-center border-b border-gray-50 relative group-hover/card:scale-[1.01] transition-transform duration-500">
-                        <Award className="size-10 text-primary/20" />
+                      {/* Product Image */}
+                      <div className="aspect-[4/3] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center border-b border-gray-50 relative overflow-hidden group-hover/card:scale-[1.01] transition-transform duration-500">
+                        {prod.hasPhoto ? (
+                          <Image
+                            src={prod.image}
+                            alt={prod.name}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                          />
+                        ) : (
+                          <Award className="size-10 text-primary/20" />
+                        )}
                         <span className="absolute top-4 left-4 rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-brand-navy uppercase tracking-wider">
                           {prod.category}
                         </span>

@@ -23,7 +23,7 @@ import {
   Lightbulb,
   UserCheck
 } from "lucide-react";
-import { PRODUCTS, TESTIMONIALS, CATEGORIES } from "@/lib/data";
+import { PRODUCTS, CATEGORIES } from "@/lib/data";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -262,7 +262,17 @@ export default function Home() {
                 <div>
                   {/* Compact Image Container */}
                   <div className="h-64 relative w-full rounded-2xl overflow-hidden mb-4 bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center border border-gray-100/30 group-hover/card:scale-[1.02] transition-transform duration-500">
-                    <Award className="size-12 text-primary/30" />
+                    {prod.hasPhoto ? (
+                      <Image
+                        src={prod.image}
+                        alt={prod.name}
+                        fill
+                        sizes="(max-width: 1024px) 285px, 25vw"
+                        className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                      />
+                    ) : (
+                      <Award className="size-12 text-primary/30" />
+                    )}
                     <span className="absolute top-3 left-3 rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-primary shadow-xs">
                       {prod.category}
                     </span>
@@ -439,64 +449,6 @@ export default function Home() {
               <ChevronRight className="size-4" />
             </a>
           </div>
-        </motion.div>
-      </section>
-
-      {/* 8. TESTIMONIALS */}
-      <section className="bg-white py-20 md:py-24">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
-
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="font-heading text-3xl font-bold text-brand-navy mb-3">
-              Trusted by Professionals & Families
-            </h2>
-            <p className="text-gray-500 text-sm">
-              Read real-life testimonials from pharmacists, doctors, and consumers.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((test) => (
-              <div
-                key={test.id}
-                className="bg-white rounded-3xl p-8 border border-gray-100 shadow-[0_10px_30px_rgba(18,33,63,0.03)] flex flex-col justify-between text-left"
-              >
-                <div>
-                  <div className="flex gap-0.5 mb-6">
-                    {[...Array(test.rating)].map((_, i) => (
-                      <Star key={i} className="size-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-500 text-xs leading-relaxed italic mb-8">
-                    &ldquo;{test.quote}&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4 border-t border-gray-50 pt-6">
-                  {/* Avatar Placeholder */}
-                  <div className="size-10 rounded-full bg-[#F4F7FB] border border-gray-100 flex items-center justify-center font-bold text-primary text-xs">
-                    {test.name[0]}
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-brand-navy">
-                      {test.name}
-                    </h4>
-                    <p className="text-[10px] text-gray-400">
-                      {test.role}
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-            ))}
-          </div>
-
         </motion.div>
       </section>
 

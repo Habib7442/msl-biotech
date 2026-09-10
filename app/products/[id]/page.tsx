@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { PRODUCTS, Product } from "@/lib/data";
 import EnquiryButton from "@/components/EnquiryButton";
+import ProductGallery from "@/components/ProductGallery";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -38,6 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${product.name} | MSL Biotech`,
     description: `Read compositions, packaging details, and therapeutic indications for ${product.name}. Medicine Save Life.`,
+    openGraph: product.hasPhoto
+      ? {
+          title: `${product.name} | MSL Biotech`,
+          description: `Composition: ${product.composition}`,
+          images: [{ url: product.image }],
+        }
+      : undefined,
   };
 }
 
@@ -97,14 +105,22 @@ export default async function ProductDetailPage({ params }: Props) {
             
             {/* Left Column: Visual container */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-[420px] aspect-square rounded-[32px] bg-gradient-to-br from-primary/10 to-[#7FC700]/10 p-6 flex items-center justify-center relative shadow-md border border-gray-50/50">
-                <div className="size-20 rounded-full bg-white flex items-center justify-center shadow-md">
-                  <Award className="size-10 text-primary" />
+              {product.hasPhoto ? (
+                <ProductGallery
+                  images={product.gallery && product.gallery.length > 0 ? product.gallery : [product.image]}
+                  name={product.name}
+                  form={product.form}
+                />
+              ) : (
+                <div className="w-full max-w-[420px] aspect-square rounded-[32px] bg-gradient-to-br from-primary/10 to-[#7FC700]/10 p-6 flex items-center justify-center relative shadow-md border border-gray-50/50">
+                  <div className="size-20 rounded-full bg-white flex items-center justify-center shadow-md">
+                    <Award className="size-10 text-primary" />
+                  </div>
+                  <span className="absolute bottom-6 right-6 rounded-full bg-primary text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider">
+                    {product.form}
+                  </span>
                 </div>
-                <span className="absolute bottom-6 right-6 rounded-full bg-primary text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider">
-                  {product.form}
-                </span>
-              </div>
+              )}
             </div>
 
             {/* Right Column: Information Panel */}

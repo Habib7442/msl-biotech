@@ -30,12 +30,16 @@
 - [x] Unit 09: Contact Page (Created interactive contact page in `app/contact/page.tsx` with maps and validation forms).
 - [x] Create `context/specs/10-utilities.md`.
 - [x] Unit 10: Utility Pages & 404 (Created Privacy Policy, Terms & Conditions, Medical Disclaimer, and custom styled 404 page).
+- [x] Unit 11: Real Product Photography (Flemosel & Flemosel-DS). Renamed client-supplied WhatsApp photos into SEO-friendly filenames under `public/images/products/` (e.g. `flemosel-tablets-trypsin-bromelain-rutoside.jpg`), added `flemosel-tablets` and `flemosel-ds-tablets` entries to `PRODUCTS` in `lib/data.ts`, and wired real photography into the homepage featured strip, products catalog grid, and product detail page (new `components/ProductGallery.tsx` client component for the detail-page image switcher). Each product already gets its own statically generated `/products/[id]` page with unique `generateMetadata` title/description (+ OpenGraph image for photographed products) for SEO.
+- [x] Unit 11b: Removed all 12 placeholder mock products (Amoxigen, Paracit-500, Kof-Relief, Cal-D3 Max, Pedia-Safe Drops, Dia-Control 500, Gastro-Shield DSR, Aloe-Gentle Skin Gel, Azith-MSL 500, Multi-Vita Active, Cofi-Dry Cough Syrup, Pedia-Safe Zinc Solution) from `PRODUCTS` in `lib/data.ts` — they never had real photography and rendered as blank icon-placeholder cards. `PRODUCTS` now contains only the two real, photographed Flemosel items. `CATEGORIES` was left untouched (still lists all 8 category filters) even though most currently have zero matching products — add real products to those categories as they become available rather than re-adding mock data.
+- [x] Unit 11c: Fixed washed-out real product photos on the homepage featured strip, products catalog grid, and product detail gallery — removed double padding around the `fill` images, switched `object-contain` to `object-cover`, and added a brightness/contrast/saturation boost so photos fill the card edge-to-edge instead of floating small inside a pale gradient frame.
+- [x] Unit 11d: Removed the fake "Trusted by Professionals & Families" testimonials section from the homepage (`app/page.tsx`) along with the underlying `TESTIMONIALS` mock data and `Testimonial` interface in `lib/data.ts`, since none of those quotes/reviewers are real. No replacement content added — re-add a testimonials section only once real client/doctor/pharmacist quotes are available.
 
 ## In Progress
 - None.
 
 ## Next Up
-- None. All 10 implementation units are complete and verified!
+- None. All 11 implementation units are complete and verified!
 
 ## Open Questions
 - None.
