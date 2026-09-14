@@ -2,14 +2,14 @@ import { Metadata } from "next";
 
 export const defaultSEO: Metadata = {
   title: {
-    default: "MSL Biotech | Medicine Save Life",
+    default: "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam",
     template: "%s | MSL Biotech",
   },
-  description: "MSL Biotech Private Limited is a premium pharmaceutical manufacturing and healthcare brand dedicated to quality care across generations.",
+  description: "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.",
   metadataBase: new URL("https://mslbiotech.in"),
   openGraph: {
-    title: "MSL Biotech | Medicine Save Life",
-    description: "MSL Biotech Private Limited is a premium pharmaceutical manufacturing and healthcare brand dedicated to quality care across generations.",
+    title: "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam",
+    description: "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.",
     url: "https://mslbiotech.in",
     siteName: "MSL Biotech",
     images: [
@@ -25,8 +25,8 @@ export const defaultSEO: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MSL Biotech | Medicine Save Life",
-    description: "MSL Biotech Private Limited is a premium pharmaceutical manufacturing and healthcare brand dedicated to quality care across generations.",
+    title: "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam",
+    description: "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.",
     images: ["/og-image.jpg"],
   },
   icons: {

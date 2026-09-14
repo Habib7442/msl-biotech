@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check, Heart, ShieldCheck, HelpCircle } from "lucide-react";
+import { getAllProducts } from "@/lib/sanity/products";
 
 export const metadata: Metadata = {
   title: "About Us | MSL Biotech",
   description: "Learn about MSL Biotech Private Limited's mission to save lives through affordable, high-quality, WHO-GMP certified pharmaceuticals.",
 };
 
-export default function About() {
+export default async function About() {
+  const products = await getAllProducts();
+  const productCount = products.length;
   const values = [
     {
       title: "Quality First",
@@ -57,22 +60,22 @@ export default function About() {
             {/* Left Column: Big Founding year indicator */}
             <div className="lg:col-span-5 flex flex-col gap-6 bg-[#F4F7FB] p-8 sm:p-10 rounded-[32px] border border-gray-100">
               <div className="text-[#184EA4] font-heading text-7xl font-extrabold leading-none">
-                2011
+                2026
               </div>
               <h3 className="font-heading text-xl font-bold text-brand-navy">
-                Our Founding & Rise
+                Our Founding
               </h3>
               <p className="text-gray-500 text-xs leading-relaxed">
-                Starting as a specialized clinical formulations developer in Guwahati, Assam, <strong className="font-bold text-brand-navy">MSL Biotech Private Limited</strong> has grown to distribute over 120 therapeutic products across 28 states, backed by strict WHO-GMP compliance.
+                <strong className="font-bold text-brand-navy">MSL Biotech Private Limited</strong> (CIN: U47721AS2026PTC030611) is a newly established pharmaceutical manufacturer based in Guwahati, Assam, built around WHO-GMP aligned formulation standards and a patient-first approach to accessible healthcare.
               </p>
               <div className="border-t border-gray-200/60 pt-6 mt-2 grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-heading text-2xl font-bold text-primary">120+</h4>
-                  <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Approved Products</p>
+                  <h4 className="font-heading text-2xl font-bold text-primary">{productCount}{productCount > 0 ? "+" : ""}</h4>
+                  <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Formulations in Catalog</p>
                 </div>
                 <div>
-                  <h4 className="font-heading text-2xl font-bold text-primary">28+</h4>
-                  <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Indian States</p>
+                  <h4 className="font-heading text-2xl font-bold text-primary">2026</h4>
+                  <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Company Registered</p>
                 </div>
               </div>
             </div>
@@ -80,10 +83,10 @@ export default function About() {
             {/* Right Column: Narrative */}
             <div className="lg:col-span-7 flex flex-col gap-6 text-left">
               <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brand-navy leading-snug">
-                Pioneering Accessible Healthcare Solutions Across Generations
+                Building Accessible Healthcare Solutions From the Ground Up
               </h2>
               <p className="text-gray-500 text-sm leading-relaxed">
-                MSL Biotech was founded on the belief that premium-grade medications should not be a luxury. Over the past decade and a half, we have dedicated ourselves to building a robust manufacturing footprint that blends technological biotechnology precision with empathetic, patient-first care.
+                MSL Biotech was founded on the belief that premium-grade medications should not be a luxury. As a newly registered manufacturer, we are building our formulation catalog and manufacturing footprint with the same rigor and patient-first care we intend to carry through every stage of our growth.
               </p>
               <p className="text-gray-500 text-sm leading-relaxed">
                 Whether formulating child-safe pediatric drops, sustained-release glycemic controllers for Type 2 diabetes, or broad-spectrum penicillin capsules, we apply uniform rigor. Every raw ingredient, chemical process, and batch packaging is monitored by a team of veteran Quality Assurance (QA) experts.

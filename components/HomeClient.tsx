@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
-  Star,
   Award,
   ShieldCheck,
   Heart,
@@ -122,16 +121,6 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
                     100% Quality<br /><span className="text-white/70 lg:text-gray-400 font-normal">Assured</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Patient Trust Indicator */}
-              <div className="flex items-center justify-center lg:justify-start gap-2.5 mt-2 text-xs text-white/80 lg:text-gray-500">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="size-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <span>Trusted by 5,000+ families & pharmacists</span>
               </div>
 
             </motion.div>
@@ -278,14 +267,10 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
                     </p>
                   </div>
 
-                  {/* Rating */}
-                  <div className="flex items-center gap-1.5 mt-4 pt-3 border-t border-gray-50">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="size-3 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <span className="text-[10px] text-gray-400 font-medium">(5.0)</span>
+                  {/* View Details Prompt */}
+                  <div className="flex items-center gap-1.5 mt-4 pt-3 border-t border-gray-50 text-primary group-hover/card:gap-2.5 transition-all">
+                    <span className="text-[10px] font-bold uppercase tracking-wider">View Details</span>
+                    <ArrowRight className="size-3" />
                   </div>
                 </Link>
               ))}
