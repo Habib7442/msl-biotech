@@ -169,9 +169,9 @@ export default async function ProductDetailPage({ params }: Props) {
                   <div className="p-2.5 rounded-xl bg-[#F4F7FB] text-primary shrink-0">
                     <Thermometer className="size-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h5 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Storage Rules</h5>
-                    <p className="text-xs font-bold text-brand-navy truncate max-w-[140px]" title={product.storage}>
+                    <p className="text-xs font-bold text-brand-navy">
                       {product.storage}
                     </p>
                   </div>
