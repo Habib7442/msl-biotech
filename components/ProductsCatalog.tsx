@@ -252,18 +252,18 @@ export default function ProductsCatalog({ products }: ProductsCatalogProps) {
                             alt={prod.name}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                            className="object-contain p-4 [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
                             priority={index === 0}
                           />
                         ) : (
                           <Award className="size-10 text-primary/20" />
                         )}
-                        <span className="absolute top-4 left-4 rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-brand-navy uppercase tracking-wider">
-                          {prod.category}
-                        </span>
                       </div>
 
                       <div className="p-6 flex flex-col flex-grow text-left">
+                        <span className="rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-brand-navy uppercase tracking-wider w-fit mb-3">
+                          {prod.category}
+                        </span>
                         <h3 className="font-heading text-base font-bold text-brand-navy group-hover/card:text-primary transition-colors mb-1 leading-snug">
                           {prod.name}
                         </h3>

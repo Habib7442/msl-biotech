@@ -248,18 +248,18 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
                           alt={prod.name}
                           fill
                           sizes="(max-width: 1024px) 285px, 25vw"
-                          className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                          className="object-contain p-5 [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
                           priority={index === 0}
                         />
                       ) : (
                         <Award className="size-12 text-primary/30" />
                       )}
-                      <span className="absolute top-3 left-3 rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-primary shadow-xs">
-                        {prod.category}
-                      </span>
                     </div>
 
-                    {/* Product Name */}
+                    {/* Category + Product Name */}
+                    <span className="inline-flex items-center rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-primary mb-2">
+                      {prod.category}
+                    </span>
                     <h3 className="font-heading text-sm font-bold text-brand-navy group-hover/card:text-primary transition-colors mb-1 leading-snug">
                       {prod.name}
                     </h3>

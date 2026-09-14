@@ -22,7 +22,7 @@ export default function ProductGallery({ images, name, form }: ProductGalleryPro
             alt={`${name} - ${form} packaging`}
             fill
             sizes="(max-width: 640px) 100vw, 420px"
-            className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+            className="object-contain p-6 [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
             priority
           />
         </div>
@@ -49,7 +49,7 @@ export default function ProductGallery({ images, name, form }: ProductGalleryPro
                 alt={`${name} thumbnail ${idx + 1}`}
                 fill
                 sizes="64px"
-                className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                className="object-contain p-1.5 [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
               />
             </button>
           ))}
