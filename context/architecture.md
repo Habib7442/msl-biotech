@@ -9,7 +9,8 @@
 | **Styling** | Tailwind CSS v4 | Utility-first styling combined with `@theme` configurations. |
 | **Components** | Base UI + Custom Shadcn | Core accessible elements (Dialogs, Buttons, Cards). |
 | **Icons** | Lucide React | Clean, scalable vector icons. |
-| **Data Store** | In-memory Mock Data (`lib/data.ts`) | Static database containing the product catalog, blogs, and testimonials. |
+| **Data Store** | In-memory Mock Data (`lib/data.ts`) | Static database containing the product catalog and blogs. |
+| **CMS / Admin Panel** | Sanity Studio (embedded, `sanity`/`next-sanity`) | Editorial admin panel at `/admin` for managing the product catalog without a code deploy. |
 
 ## System Boundaries
 
@@ -17,13 +18,20 @@
   - `app/api/` - Houses mock backend API endpoints (e.g. contact form logger).
   - `app/products/` - Product pages (listing + slug-based dynamic details).
   - `app/blog/` - Blog pages (listing + slug-based dynamic posts).
-- `components/` - Houses reusable UI primitives (`components/ui`) and high-level components (`components/Header.tsx`, `components/Footer.tsx`, etc.).
+  - `app/admin/[[...tool]]/` - Embedded Sanity Studio (admin panel) catch-all route, mounted at `/admin`. Rendered entirely inside a client component (`components/StudioClient.tsx`) so the Sanity/React module graph never crosses into the Server Component tree (see Sanity Studio Embedding note below).
+- `components/` - Houses reusable UI primitives (`components/ui`) and high-level components (`components/Header.tsx`, `components/Footer.tsx`, etc.). `components/SiteChrome.tsx` conditionally skips the marketing chrome (Header/Footer/Preloader/SmoothScroll/FloatingContact/EnquiryModal) for `/admin` routes, since the Studio needs full control of the viewport.
 - `lib/` - Shared utility functions (`lib/utils.ts`) and mock database (`lib/data.ts`).
+  - `lib/sanity/` - Sanity client (`client.ts`), env/config resolution (`env.ts`), image URL builder (`image.ts`), and GROQ queries (`queries.ts`).
+- `sanity/schemaTypes/` - Sanity Studio content schema definitions (currently `productType.ts`).
+- `sanity.config.ts` / `sanity.cli.ts` - Studio configuration and CLI targeting (project ID/dataset), read from `NEXT_PUBLIC_SANITY_PROJECT_ID` / `NEXT_PUBLIC_SANITY_DATASET`.
 - `public/` - Public assets (favicons, product images, hero graphics).
 
 ## Storage Model
-- **Product Catalog & Blogs**: Managed statically inside `lib/data.ts` as structured JSON arrays.
+- **Product Catalog & Blogs**: Currently managed statically inside `lib/data.ts` as structured JSON arrays. A Sanity `product` schema (`sanity/schemaTypes/productType.ts`) and admin panel (`/admin`) now exist so the catalog can be edited without a deploy, but the public site's product pages have **not yet been rewired** to fetch from Sanity — that's the next unit of work, gated on a real Sanity project ID/dataset (see `context/progress-tracker.md`).
 - **Enquiry Form Submissions**: Posted to `app/api/enquiry/route.ts`, which validates inputs, logs the payload to the server-side console, and simulates a database write latency before returning a successful JSON response.
+
+## Sanity Studio Embedding (Important Gotcha)
+Do not import `sanity.config.ts` (or anything from `sanity`/`next-sanity/studio`) directly inside a Server Component. Importing it in `app/admin/[[...tool]]/page.tsx` directly caused a real, reproducible build/runtime failure (`swr`'s `react-server` export missing a default export at build time; `useSyncExternalStore` on a null React at runtime) under both Turbopack and webpack — it is not a Turbopack-specific bug. The fix is to keep the Server Component page free of any Sanity imports and do `import config from "@/sanity.config"` + `<NextStudio config={config} />` only inside a `"use client"` component (`components/StudioClient.tsx`), which the server page merely renders. Preserve this structure in any future edits to the admin route.
 
 ## Invariants (Rules That Must Never Be Violated)
 1. **Disclaimers**: A medical disclaimer warning must be visible in the site footer and on every individual product detail page.

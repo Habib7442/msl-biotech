@@ -34,19 +34,21 @@
 - [x] Unit 11b: Removed all 12 placeholder mock products (Amoxigen, Paracit-500, Kof-Relief, Cal-D3 Max, Pedia-Safe Drops, Dia-Control 500, Gastro-Shield DSR, Aloe-Gentle Skin Gel, Azith-MSL 500, Multi-Vita Active, Cofi-Dry Cough Syrup, Pedia-Safe Zinc Solution) from `PRODUCTS` in `lib/data.ts` — they never had real photography and rendered as blank icon-placeholder cards. `PRODUCTS` now contains only the two real, photographed Flemosel items. `CATEGORIES` was left untouched (still lists all 8 category filters) even though most currently have zero matching products — add real products to those categories as they become available rather than re-adding mock data.
 - [x] Unit 11c: Fixed washed-out real product photos on the homepage featured strip, products catalog grid, and product detail gallery — removed double padding around the `fill` images, switched `object-contain` to `object-cover`, and added a brightness/contrast/saturation boost so photos fill the card edge-to-edge instead of floating small inside a pale gradient frame.
 - [x] Unit 11d: Removed the fake "Trusted by Professionals & Families" testimonials section from the homepage (`app/page.tsx`) along with the underlying `TESTIMONIALS` mock data and `Testimonial` interface in `lib/data.ts`, since none of those quotes/reviewers are real. No replacement content added — re-add a testimonials section only once real client/doctor/pharmacist quotes are available.
+- [x] Unit 12: Sanity Studio admin panel scaffolded at `/admin` (embedded in this Next.js app, per user decision — see Open Questions/decisions below). Added `sanity`, `next-sanity`, `@sanity/vision`, `@sanity/image-url`, `styled-components` deps; `sanity.config.ts` / `sanity.cli.ts`; a `product` schema (`sanity/schemaTypes/productType.ts`) mirroring the existing `Product` interface (name, slug, category, images gallery, description, composition, form, packaging, indications, storage, featured) — reviews/wishlist/compare intentionally excluded (out of scope, no account/review system exists); `lib/sanity/{env,client,image,queries}.ts` plumbing; `components/SiteChrome.tsx` (skips marketing chrome for `/admin`) and `components/StudioClient.tsx` (isolates all Sanity imports inside a client component — required to avoid a real build/runtime crash documented in `context/architecture.md` under "Sanity Studio Embedding"). `.env.local.example` documents the two required env vars. Verified with `npm run build` + `next start` + Playwright screenshots: site pages unaffected, `/admin` renders a friendly "not configured" screen when env vars are absent (current committed state) and correctly reaches Sanity's real auth flow when a project ID is set.
 
 ## In Progress
 - None.
 
 ## Next Up
-- None. All 11 implementation units are complete and verified!
+- **Unit 13 (blocked on user)**: Wire the public product pages (`app/products/page.tsx`, `app/products/[id]/page.tsx`, homepage featured strip) to fetch from Sanity instead of `lib/data.ts`, once a real Sanity project exists. Requires the user to run `npx sanity login` + `npx sanity init` locally (browser OAuth, can't be done from this environment) and set `NEXT_PUBLIC_SANITY_PROJECT_ID` / `NEXT_PUBLIC_SANITY_DATASET` in `.env.local`. After that: seed the two existing Flemosel products into Sanity via `/admin`, then swap the static imports for `lib/sanity/queries.ts` fetches (keep it simple — no need to keep `lib/data.ts` as a fallback once Sanity is live, per the project's no-speculative-code rule).
 
 ## Open Questions
-- None.
+- Resolved: admin panel CMS = Sanity, embedded at `/admin` in this app, schema scoped to catalog fields only (no reviews/wishlist/compare) — decided directly with the user on 2026-09-14.
 
 ## Architecture Decisions
 - Adopted the Six-File Context Methodology from Javascript Mastery.
 - Decided to use Next.js 16 App Router for static/server-side rendering and static json arrays for mock databases.
+- Adopted Sanity as the product catalog CMS (2026-09-14), embedded as a Studio admin panel at `/admin` rather than a separate deployed project. `lib/data.ts` remains the live data source for the public site until Unit 13 rewires the product pages to Sanity — see `context/architecture.md` "Sanity Studio Embedding" for a required implementation gotcha.
 
 ## Session Notes
 - Project has just been initialized. The baseline boilerplate exists. We are now preparing the build plan.
