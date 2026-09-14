@@ -76,7 +76,7 @@ export default async function ProductDetailPage({ params }: Props) {
   return (
     <div className="w-full">
       {/* Subpage Navigation Bar */}
-      <section className="bg-white border-b border-gray-100 py-6">
+      <section className="bg-white border-b border-gray-100 pt-28 pb-6 md:pt-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             
