@@ -35,10 +35,17 @@ export default function Header() {
     setIsOpen(false);
   };
 
+  // The transparent floating-header look is only designed for the homepage's
+  // light hero. Every other page opens with a navy banner directly behind the
+  // header, so a transparent header there makes the nav text unreadable —
+  // force the solid/white header state everywhere except the homepage.
+  const isHome = pathname === "/";
+  const showSolid = isScrolled || !isHome;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
-        isScrolled
+        showSolid
           ? "bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(18,33,63,0.08)] border-b border-gray-100 py-3"
           : "bg-transparent border-b border-transparent py-4"
       }`}
@@ -98,7 +105,7 @@ export default function Header() {
             <a
               href="tel:+919859757710"
               className={`flex items-center justify-center p-2 rounded-xl transition-colors ${
-                isScrolled
+                showSolid
                   ? "text-primary bg-[#F4F7FB]"
                   : "text-white bg-white/10 hover:bg-white/20"
               }`}
@@ -111,7 +118,7 @@ export default function Header() {
                 render={
                   <button
                     className={`flex items-center justify-center p-2 rounded-xl transition-colors cursor-pointer ${
-                      isScrolled
+                      showSolid
                         ? "text-brand-navy hover:bg-[#F4F7FB]"
                         : "text-white hover:bg-white/10"
                     }`}
