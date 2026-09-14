@@ -7,6 +7,7 @@ import FloatingContact from "@/components/FloatingContact";
 import EnquiryModal from "@/components/EnquiryModal";
 import Preloader from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
+import OrganizationJsonLd from "@/components/OrganizationJsonLd";
 
 interface SiteChromeProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export default function SiteChrome({ children }: SiteChromeProps) {
 
   return (
     <>
+      <OrganizationJsonLd />
       <Preloader />
       <SmoothScroll>
         <Header />

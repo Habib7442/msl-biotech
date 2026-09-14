@@ -1,15 +1,66 @@
 import { Metadata } from "next";
 
+const title = "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam";
+const description = "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.";
+
+// Keep this list grounded in what the site actually offers (see
+// context/project-overview.md and lib/data.ts CATEGORIES) — brand terms,
+// product-category terms, and the PCD-franchise/distribution angle that's
+// an explicit lead-gen goal for this site. Don't add category terms here
+// that aren't real product lines on the site.
+const keywords = [
+  "MSL Biotech",
+  "MSL Biotech Private Limited",
+  "Medicine Save Life",
+  "pharmaceutical manufacturer Guwahati",
+  "pharmaceutical company Assam",
+  "WHO-GMP pharma manufacturer India",
+  "tablet manufacturer Guwahati",
+  "capsule manufacturer Assam",
+  "syrup manufacturer Guwahati",
+  "nutraceutical manufacturer India",
+  "pediatric medicine manufacturer",
+  "diabetes care medicine Assam",
+  "gastro care medicine manufacturer",
+  "personal care pharma products",
+  "PCD pharma franchise Assam",
+  "pharma franchise Guwahati",
+  "pharmaceutical distributor partnership Assam",
+  "third party pharma manufacturing Guwahati",
+  "pharma company Panjabari Guwahati",
+  "generic medicine manufacturer Northeast India",
+];
+
 export const defaultSEO: Metadata = {
   title: {
-    default: "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam",
+    default: title,
     template: "%s | MSL Biotech",
   },
-  description: "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.",
+  description,
+  keywords,
+  authors: [{ name: "MSL Biotech Private Limited", url: "https://mslbiotech.in" }],
+  creator: "MSL Biotech Private Limited",
+  publisher: "MSL Biotech Private Limited",
   metadataBase: new URL("https://mslbiotech.in"),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
-    title: "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam",
-    description: "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.",
+    title,
+    description,
     url: "https://mslbiotech.in",
     siteName: "MSL Biotech",
     images: [
@@ -25,8 +76,8 @@ export const defaultSEO: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam",
-    description: "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.",
+    title,
+    description,
     images: ["/og-image.jpg"],
   },
   icons: {
