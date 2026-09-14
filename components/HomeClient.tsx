@@ -150,14 +150,17 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            className="flex overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-6 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory scrollbar-none"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             {CATEGORIES.map((cat) => {
               const meta = categoryMetaData[cat] || { tagline: "Healthcare solutions", color: "border-blue-200 bg-blue-100", cardBg: "bg-blue-50 hover:bg-blue-100 border-blue-200", imagePath: "/images/categories/tablets.png" };
               return (
                 <Link
                   key={cat}
                   href={`/products?category=${encodeURIComponent(cat)}`}
-                  className={`group rounded-3xl p-6 border ${meta.cardBg} shadow-[0_10px_30px_rgba(18,33,63,0.04)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left relative overflow-hidden`}
+                  className={`group rounded-3xl p-6 border ${meta.cardBg} shadow-[0_10px_30px_rgba(18,33,63,0.04)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left relative overflow-hidden w-[220px] sm:w-auto shrink-0 snap-center`}
                 >
                   {/* Specific Illustration Watermark Background */}
                   <div className="absolute -bottom-6 -right-6 w-24 h-24 z-0 pointer-events-none opacity-[0.4] group-hover:opacity-[0.55] group-hover:scale-110 transition-all duration-500">
