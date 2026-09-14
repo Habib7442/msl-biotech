@@ -21,14 +21,14 @@ interface HomeClientProps {
 
 export default function HomeClient({ featuredProducts }: HomeClientProps) {
   const categoryMetaData: { [key: string]: { tagline: string; color: string; cardBg: string; imagePath: string } } = {
-    "Tablets": { tagline: "Solid Oral Dose", color: "border-blue-100/50 bg-blue-50/10", cardBg: "bg-blue-50/20 hover:bg-blue-50/40 border-blue-100/40", imagePath: "/images/categories/tablets.png" },
-    "Capsules": { tagline: "Gelatin Shelled", color: "border-purple-100/50 bg-purple-50/10", cardBg: "bg-purple-50/20 hover:bg-purple-50/40 border-purple-100/40", imagePath: "/images/categories/capsules.png" },
-    "Syrups": { tagline: "Liquid Formulations", color: "border-orange-100/50 bg-orange-50/10", cardBg: "bg-orange-50/20 hover:bg-orange-50/40 border-orange-100/40", imagePath: "/images/categories/syrups.png" },
-    "Nutraceuticals": { tagline: "Daily Supplements", color: "border-red-100/50 bg-red-50/10", cardBg: "bg-red-50/20 hover:bg-red-50/40 border-red-100/40", imagePath: "/images/categories/nutraceuticals.png" },
-    "Pediatric Care": { tagline: "Child Safe Drops", color: "border-pink-100/50 bg-pink-50/10", cardBg: "bg-pink-50/20 hover:bg-pink-50/40 border-pink-100/40", imagePath: "/images/categories/pediatric.png" },
-    "Diabetes Care": { tagline: "Glycemic Solutions", color: "border-cyan-100/50 bg-cyan-50/10", cardBg: "bg-cyan-50/20 hover:bg-cyan-50/40 border-cyan-100/40", imagePath: "/images/categories/diabetes.png" },
-    "Gastro Care": { tagline: "Reflux Inhibitors", color: "border-emerald-100/50 bg-emerald-50/10", cardBg: "bg-emerald-50/20 hover:bg-emerald-50/40 border-emerald-100/40", imagePath: "/images/categories/gastro.png" },
-    "Personal Care": { tagline: "Somatic Skin Gels", color: "border-yellow-100/50 bg-yellow-50/10", cardBg: "bg-yellow-50/20 hover:bg-yellow-50/40 border-yellow-100/40", imagePath: "/images/categories/personal.png" },
+    "Tablets": { tagline: "Solid Oral Dose", color: "border-blue-200 bg-blue-100", cardBg: "bg-blue-50 hover:bg-blue-100 border-blue-200", imagePath: "/images/categories/tablets.png" },
+    "Capsules": { tagline: "Gelatin Shelled", color: "border-purple-200 bg-purple-100", cardBg: "bg-purple-50 hover:bg-purple-100 border-purple-200", imagePath: "/images/categories/capsules.png" },
+    "Syrups": { tagline: "Liquid Formulations", color: "border-orange-200 bg-orange-100", cardBg: "bg-orange-50 hover:bg-orange-100 border-orange-200", imagePath: "/images/categories/syrups.png" },
+    "Nutraceuticals": { tagline: "Daily Supplements", color: "border-red-200 bg-red-100", cardBg: "bg-red-50 hover:bg-red-100 border-red-200", imagePath: "/images/categories/nutraceuticals.png" },
+    "Pediatric Care": { tagline: "Child Safe Drops", color: "border-pink-200 bg-pink-100", cardBg: "bg-pink-50 hover:bg-pink-100 border-pink-200", imagePath: "/images/categories/pediatric.png" },
+    "Diabetes Care": { tagline: "Glycemic Solutions", color: "border-cyan-200 bg-cyan-100", cardBg: "bg-cyan-50 hover:bg-cyan-100 border-cyan-200", imagePath: "/images/categories/diabetes.png" },
+    "Gastro Care": { tagline: "Reflux Inhibitors", color: "border-emerald-200 bg-emerald-100", cardBg: "bg-emerald-50 hover:bg-emerald-100 border-emerald-200", imagePath: "/images/categories/gastro.png" },
+    "Personal Care": { tagline: "Somatic Skin Gels", color: "border-yellow-200 bg-yellow-100", cardBg: "bg-yellow-50 hover:bg-yellow-100 border-yellow-200", imagePath: "/images/categories/personal.png" },
   };
 
   return (
@@ -152,15 +152,15 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {CATEGORIES.map((cat) => {
-              const meta = categoryMetaData[cat] || { tagline: "Healthcare solutions", color: "border-blue-100/50 bg-blue-50/10", cardBg: "bg-blue-50/20 hover:bg-blue-50/40 border-blue-100/40", imagePath: "/images/categories/tablets.png" };
+              const meta = categoryMetaData[cat] || { tagline: "Healthcare solutions", color: "border-blue-200 bg-blue-100", cardBg: "bg-blue-50 hover:bg-blue-100 border-blue-200", imagePath: "/images/categories/tablets.png" };
               return (
                 <Link
                   key={cat}
                   href={`/products?category=${encodeURIComponent(cat)}`}
-                  className={`group rounded-3xl p-6 border ${meta.cardBg} shadow-[0_10px_30px_rgba(18,33,63,0.01)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.03)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left relative overflow-hidden`}
+                  className={`group rounded-3xl p-6 border ${meta.cardBg} shadow-[0_10px_30px_rgba(18,33,63,0.04)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left relative overflow-hidden`}
                 >
                   {/* Specific Illustration Watermark Background */}
-                  <div className="absolute -bottom-6 -right-6 w-24 h-24 z-0 pointer-events-none opacity-[0.25] group-hover:opacity-[0.40] group-hover:scale-110 transition-all duration-500">
+                  <div className="absolute -bottom-6 -right-6 w-24 h-24 z-0 pointer-events-none opacity-[0.4] group-hover:opacity-[0.55] group-hover:scale-110 transition-all duration-500">
                     <Image
                       src={meta.imagePath}
                       alt={`${cat} Watermark`}
