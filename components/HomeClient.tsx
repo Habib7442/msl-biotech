@@ -241,7 +241,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
               className="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 pb-6 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0 snap-x snap-mandatory scrollbar-none"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              {featuredProducts.map((prod) => (
+              {featuredProducts.map((prod, index) => (
                 <Link
                   key={prod.id}
                   href={`/products/${prod.id}`}
@@ -257,6 +257,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
                           fill
                           sizes="(max-width: 1024px) 285px, 25vw"
                           className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                          priority={index === 0}
                         />
                       ) : (
                         <Award className="size-12 text-primary/30" />

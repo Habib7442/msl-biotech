@@ -233,7 +233,7 @@ export default function ProductsCatalog({ products }: ProductsCatalogProps) {
               ) : (
                 /* Products Grid */
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredProducts.map((prod) => (
+                  {filteredProducts.map((prod, index) => (
                     <div
                       key={prod.id}
                       className="group/card bg-white rounded-3xl overflow-hidden border border-gray-100/60 shadow-[0_10px_30px_rgba(18,33,63,0.02)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.05)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
@@ -248,6 +248,7 @@ export default function ProductsCatalog({ products }: ProductsCatalogProps) {
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                            priority={index === 0}
                           />
                         ) : (
                           <Award className="size-10 text-primary/20" />
