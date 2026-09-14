@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { 
   ArrowLeft, 
@@ -239,9 +240,22 @@ export default async function ProductDetailPage({ params }: Props) {
             {related.map((prod) => (
               <div
                 key={prod.id}
-                className="group bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_10px_30px_rgba(18,33,63,0.02)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.04)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between text-left"
+                className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_10px_30px_rgba(18,33,63,0.02)] hover:shadow-[0_15px_35px_rgba(18,33,63,0.04)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between text-left"
               >
-                <div>
+                <div className="aspect-[4/3] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center border-b border-gray-50 relative overflow-hidden">
+                  {prod.hasPhoto ? (
+                    <Image
+                      src={prod.image}
+                      alt={prod.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover [filter:brightness(1.1)_contrast(1.12)_saturate(1.2)]"
+                    />
+                  ) : (
+                    <Award className="size-8 text-primary/20" />
+                  )}
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
                   <span className="rounded-full bg-[#EAF4DA] px-2.5 py-0.5 text-[9px] font-bold text-brand-navy uppercase tracking-wider w-fit block mb-4">
                     {prod.category}
                   </span>
@@ -251,15 +265,15 @@ export default async function ProductDetailPage({ params }: Props) {
                   <p className="text-[10px] text-gray-400 italic mb-4 truncate">
                     Composition: {prod.composition}
                   </p>
-                </div>
-                <div className="flex flex-col gap-2 mt-4">
-                  <Link
-                    href={`/products/${prod.id}`}
-                    className="w-full text-center border border-gray-100 hover:border-primary/20 hover:bg-primary/5 text-brand-navy font-bold py-2.5 rounded-xl text-[10px] transition-colors"
-                  >
-                    View details
-                  </Link>
-                  <EnquiryButton productName={prod.name} variant="secondary" className="w-full" />
+                  <div className="flex flex-col gap-2 mt-auto">
+                    <Link
+                      href={`/products/${prod.id}`}
+                      className="w-full text-center border border-gray-100 hover:border-primary/20 hover:bg-primary/5 text-brand-navy font-bold py-2.5 rounded-xl text-[10px] transition-colors"
+                    >
+                      View details
+                    </Link>
+                    <EnquiryButton productName={prod.name} variant="secondary" className="w-full" />
+                  </div>
                 </div>
               </div>
             ))}
