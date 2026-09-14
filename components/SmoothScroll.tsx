@@ -15,12 +15,14 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       touchMultiplier: 2,
     });
 
+    let animationFrameId: number;
+
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      animationFrameId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    animationFrameId = requestAnimationFrame(raf);
 
     // Register PWA Service Worker
     if ("serviceWorker" in navigator) {
@@ -35,6 +37,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     }
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       lenis.destroy();
     };
   }, []);
