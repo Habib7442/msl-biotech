@@ -12,23 +12,24 @@ import {
   Thermometer, 
   ExternalLink 
 } from "lucide-react";
-import { PRODUCTS, Product } from "@/lib/data";
 import EnquiryButton from "@/components/EnquiryButton";
 import ProductGallery from "@/components/ProductGallery";
+import { getAllProducts, getAllProductSlugs, getProductBySlug } from "@/lib/sanity/products";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export async function generateStaticParams() {
-  return PRODUCTS.map((prod) => ({
-    id: prod.id,
+  const slugs = await getAllProductSlugs();
+  return slugs.map((slug) => ({
+    id: slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const product = PRODUCTS.find((p) => p.id === id);
+  const product = await getProductBySlug(id);
 
   if (!product) {
     return {
@@ -51,20 +52,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { id } = await params;
-  const product = PRODUCTS.find((p) => p.id === id);
+  const product = await getProductBySlug(id);
 
   if (!product) {
     notFound();
   }
 
+  const allProducts = await getAllProducts();
+
   // Get related products (same category, excluding current product)
-  let related = PRODUCTS.filter(
+  let related = allProducts.filter(
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 3);
 
   // Fallback to general products if none are in the same category
   if (related.length === 0) {
-    related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 3);
+    related = allProducts.filter((p) => p.id !== product.id).slice(0, 3);
   }
 
   const waPrefill = `Hello MSL Biotech, I'd like to enquire about ${product.name} (Composition: ${product.composition}).`;
@@ -224,9 +227,10 @@ export default async function ProductDetailPage({ params }: Props) {
       </section>
 
       {/* Related products listing */}
+      {related.length > 0 && (
       <section className="bg-[#F4F7FB] py-16 border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
+
           <h3 className="font-heading text-xl font-bold text-brand-navy mb-8 text-left uppercase tracking-wider">
             Related Formulations
           </h3>
@@ -263,6 +267,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
         </div>
       </section>
+      )}
 
     </div>
   );

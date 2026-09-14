@@ -37,55 +37,6 @@ export const CATEGORIES = [
   "Personal Care"
 ];
 
-export const PRODUCTS: Product[] = [
-  {
-    id: "flemosel-tablets",
-    name: "Flemosel Tablets",
-    category: "Tablets",
-    image: "/images/products/flemosel-tablets-trypsin-bromelain-rutoside.jpg",
-    gallery: [
-      "/images/products/flemosel-tablets-trypsin-bromelain-rutoside.jpg",
-      "/images/products/flemosel-tablets-pack.jpg"
-    ],
-    hasPhoto: true,
-    composition: "Trypsin BP, Bromelain BP & Rutoside Trihydrate IP",
-    form: "Tablet",
-    packaging: "10 x 10 Tablets Blister Pack",
-    indications: [
-      "Reduction of inflammation, swelling, and edema after injury or surgery",
-      "Adjunct therapy in ENT and dental infections to control swelling",
-      "Management of sports injuries and soft-tissue trauma",
-      "Post-operative recovery support"
-    ],
-    storage: "Store below 25°C in a dry place. Protect from light and moisture.",
-    featured: true,
-    description: "A proteolytic enzyme combination of Trypsin, Bromelain, and Rutoside Trihydrate formulated to control inflammation, reduce swelling, and accelerate recovery from injury, surgery, and infection."
-  },
-  {
-    id: "flemosel-ds-tablets",
-    name: "Flemosel-DS Tablets",
-    category: "Tablets",
-    image: "/images/products/flemosel-ds-tablets-trypsin-bromelain-rutoside.jpg",
-    gallery: [
-      "/images/products/flemosel-ds-tablets-trypsin-bromelain-rutoside.jpg",
-      "/images/products/flemosel-ds-tablets-pack.jpg"
-    ],
-    hasPhoto: true,
-    composition: "Trypsin BP, Bromelain BP & Rutoside Trihydrate IP (Double Strength)",
-    form: "Tablet",
-    packaging: "10 x 10 Tablets Blister Pack",
-    indications: [
-      "Faster reduction of moderate to severe post-traumatic and post-surgical edema",
-      "Adjunct therapy in ENT and dental infections to control swelling",
-      "Management of sports injuries and soft-tissue trauma",
-      "Post-operative recovery support requiring a higher-strength dose"
-    ],
-    storage: "Store below 25°C in a dry place. Protect from light and moisture.",
-    featured: true,
-    description: "A double-strength proteolytic enzyme formulation of Trypsin, Bromelain, and Rutoside Trihydrate, delivering a higher dose for faster relief from moderate to severe inflammation and swelling."
-  }
-];
-
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: "understanding-who-gmp-standards",
