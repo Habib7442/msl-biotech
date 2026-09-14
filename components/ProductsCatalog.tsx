@@ -38,11 +38,16 @@ export default function ProductsCatalog({ products }: ProductsCatalogProps) {
     }
   }, [categoryParam, searchParam]);
 
-  const updateFilters = (category: string, search: string) => {
+  const updateFilters = (category: string, search: string, replace = false) => {
     const params = new URLSearchParams();
     if (category !== "All") params.set("category", category);
     if (search.trim()) params.set("search", search);
-    router.push(`/products?${params.toString()}`);
+    const url = `/products?${params.toString()}`;
+    if (replace) {
+      router.replace(url);
+    } else {
+      router.push(url);
+    }
   };
 
   const handleCategoryChange = (category: string) => {
@@ -53,7 +58,7 @@ export default function ProductsCatalog({ products }: ProductsCatalogProps) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setSearchQuery(val);
-    updateFilters(activeCategory, val);
+    updateFilters(activeCategory, val, true);
   };
 
   const resetFilters = () => {
