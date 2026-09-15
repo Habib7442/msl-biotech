@@ -58,6 +58,14 @@ export const defaultSEO: Metadata = {
   formatDetection: {
     telephone: false,
   },
+  // Google Search Console's "HTML tag" verification method: add the
+  // property in Search Console, copy the content value it gives you (not
+  // the whole <meta> tag) into NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in
+  // .env.local, then redeploy. Omitted entirely if unset, rather than
+  // rendering an empty/broken meta tag.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
   openGraph: {
     title,
     description,
