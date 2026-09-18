@@ -1,7 +1,12 @@
 import { client } from "./client";
 import { urlForImage } from "./image";
-import { PRODUCTS_QUERY, PRODUCT_BY_SLUG_QUERY, PRODUCT_SLUGS_QUERY } from "./queries";
+import { PRODUCTS_QUERY, PRODUCT_BY_SLUG_QUERY, PRODUCT_SLUGS_QUERY, PRODUCT_SITEMAP_QUERY } from "./queries";
 import type { Product } from "@/lib/data";
+
+export interface ProductSitemapEntry {
+  slug: string;
+  updatedAt: string;
+}
 
 interface RawSanityImage {
   _key?: string;
@@ -71,4 +76,12 @@ export async function getAllProductSlugs(): Promise<string[]> {
     { next: { revalidate: 60 } }
   );
   return slugs.filter((slug): slug is string => Boolean(slug));
+}
+
+export async function getAllProductsForSitemap(): Promise<ProductSitemapEntry[]> {
+  return client.fetch<ProductSitemapEntry[]>(
+    PRODUCT_SITEMAP_QUERY,
+    {},
+    { next: { revalidate: 60 } }
+  );
 }

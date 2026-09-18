@@ -34,13 +34,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!product) {
     return {
-      title: "Product Not Found | MSL Biotech",
+      title: "Product Not Found",
     };
   }
 
   return {
-    title: `${product.name} | MSL Biotech`,
+    title: product.name,
     description: `Read compositions, packaging details, and therapeutic indications for ${product.name}. Medicine Save Life.`,
+    alternates: { canonical: `/products/${id}` },
     openGraph: product.hasPhoto
       ? {
           title: `${product.name} | MSL Biotech`,

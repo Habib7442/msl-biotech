@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | MSL Biotech",
+  title: "Privacy Policy",
   description: "Read the Privacy Policy of MSL Biotech Private Limited. We are committed to protecting your personal data in accordance with the Indian DPDP Act.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPolicy() {

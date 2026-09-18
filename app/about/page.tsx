@@ -4,8 +4,9 @@ import { ArrowRight, Check, Heart, ShieldCheck, HelpCircle, Quote } from "lucide
 import { getAllProducts } from "@/lib/sanity/products";
 
 export const metadata: Metadata = {
-  title: "About Us | MSL Biotech",
+  title: "About Us",
   description: "Learn about MSL Biotech Private Limited's mission to save lives through affordable, high-quality, WHO-GMP certified pharmaceuticals.",
+  alternates: { canonical: "/about" },
 };
 
 export default async function About() {

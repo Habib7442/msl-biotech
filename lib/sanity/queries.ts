@@ -20,3 +20,8 @@ export const PRODUCTS_QUERY = groq`*[_type == "product"] | order(featured desc, 
 export const PRODUCT_BY_SLUG_QUERY = groq`*[_type == "product" && slug.current == $slug][0]{${PRODUCT_FIELDS}}`;
 
 export const PRODUCT_SLUGS_QUERY = groq`*[_type == "product" && defined(slug.current)][].slug.current`;
+
+export const PRODUCT_SITEMAP_QUERY = groq`*[_type == "product" && defined(slug.current)]{
+  "slug": slug.current,
+  "updatedAt": _updatedAt
+}`;

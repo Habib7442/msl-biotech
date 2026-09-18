@@ -6,8 +6,9 @@ import { getAllProducts } from "@/lib/sanity/products";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Products | MSL Biotech",
+  title: "Products",
   description: "Browse MSL Biotech's certified pharmaceutical product catalog — tablets, capsules, syrups, nutraceuticals, and more. Medicine Save Life.",
+  alternates: { canonical: "/products" },
 };
 
 export default async function ProductsPage() {

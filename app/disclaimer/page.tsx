@@ -3,8 +3,9 @@ import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Medical Disclaimer | MSL Biotech",
+  title: "Medical Disclaimer",
   description: "Read the regulatory medical disclaimer of MSL Biotech Private Limited. Always consult your physician before taking any medication.",
+  alternates: { canonical: "/disclaimer" },
 };
 
 export default function MedicalDisclaimer() {

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | MSL Biotech",
+  title: "Terms & Conditions",
   description: "Read the Terms & Conditions governing the use of MSL Biotech Private Limited's corporate website.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsConditions() {
