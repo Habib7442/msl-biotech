@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Clock, Send, Check, Loader2, ArrowRight } from "lucide-react";
+import { buildEnquiryWhatsAppLink } from "@/lib/whatsapp";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -53,43 +54,22 @@ export default function Contact() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
     setErrors({});
 
-    try {
-      const response = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          subject,
-          message,
-          consent,
-        }),
-      });
+    const waLink = buildEnquiryWhatsAppLink({ name, email, phone, subject, message });
+    window.open(waLink, "_blank", "noopener,noreferrer");
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setIsSuccess(true);
-        setName("");
-        setEmail("");
-        setPhone("");
-        setMessage("");
-      } else {
-        setErrors({ submit: data.error || "Failed to submit form." });
-      }
-    } catch (err) {
-      setErrors({ submit: "A network error occurred. Please try again." });
-    } finally {
-      setLoading(false);
-    }
+    setIsSuccess(true);
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setLoading(false);
   };
 
   return (
@@ -206,10 +186,10 @@ export default function Contact() {
                 <div className="flex flex-col items-center text-center py-12">
                   <Check className="size-16 text-[#7FC700] mb-6 animate-bounce" />
                   <h3 className="font-heading text-2xl font-bold text-brand-navy mb-3">
-                    Enquiry Logged!
+                    Check WhatsApp to Finish
                   </h3>
                   <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-8">
-                    Your details were sent successfully. Our support desk will reach out to you within the business day.
+                    We've opened WhatsApp with your details filled in. Just hit Send there and our support desk will follow up directly.
                   </p>
                   <button
                     onClick={() => setIsSuccess(false)}
@@ -226,12 +206,6 @@ export default function Contact() {
                   <p className="text-gray-400 text-xs mb-8">
                     Submit your requirement details below and we will follow up with verified documentation.
                   </p>
-
-                  {errors.submit && (
-                    <div className="bg-red-50 text-red-600 text-xs font-semibold p-4 rounded-xl mb-6">
-                      {errors.submit}
-                    </div>
-                  )}
 
                   <form onSubmit={handleSubmit} className="space-y-5">
                     

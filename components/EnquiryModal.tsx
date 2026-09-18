@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { X, CheckCircle, Loader2, ArrowRight } from "lucide-react";
+import { buildEnquiryWhatsAppLink } from "@/lib/whatsapp";
 
 export default function EnquiryModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,44 +83,28 @@ export default function EnquiryModal() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
     setErrors({});
 
-    try {
-      const response = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          subject: subject || "General Inquiry",
-          message,
-          consent,
-        }),
-      });
+    const waLink = buildEnquiryWhatsAppLink({
+      name,
+      email,
+      phone,
+      subject: subject || "General Inquiry",
+      message,
+    });
+    window.open(waLink, "_blank", "noopener,noreferrer");
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setIsSuccess(true);
-        // Clear fields
-        setName("");
-        setEmail("");
-        setPhone("");
-        setMessage("");
-      } else {
-        setErrors({ submit: data.error || "Failed to submit enquiry." });
-      }
-    } catch (err) {
-      setErrors({ submit: "A network error occurred. Please try again." });
-    } finally {
-      setLoading(false);
-    }
+    setIsSuccess(true);
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setLoading(false);
   };
 
   if (!isOpen) return null;
@@ -154,10 +139,10 @@ export default function EnquiryModal() {
                 <span className="absolute inset-0 rounded-full bg-[#7FC700]/10 animate-ping pointer-events-none" />
               </div>
               <h3 className="font-heading text-2xl font-bold text-brand-navy mb-3">
-                Enquiry Submitted!
+                Check WhatsApp to Finish
               </h3>
               <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-8">
-                Thank you for contacting MSL Biotech. Your request has been recorded. Our team will review your query and contact you within 24 hours.
+                We've opened WhatsApp with your enquiry details filled in. Just hit Send there and our team will follow up directly.
               </p>
               <button
                 onClick={() => setIsOpen(false)}
@@ -177,12 +162,6 @@ export default function EnquiryModal() {
                   Fill out the form below to receive quick pricing, catalog specs, or PCD-franchise details.
                 </p>
               </div>
-
-              {errors.submit && (
-                <div className="bg-red-50 text-red-600 text-xs font-semibold p-4 rounded-xl mb-6">
-                  {errors.submit}
-                </div>
-              )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Product Name (Disabled prefill field if exists) */}
