@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check, Heart, ShieldCheck, HelpCircle } from "lucide-react";
+import { ArrowRight, Check, Heart, ShieldCheck, HelpCircle, Quote } from "lucide-react";
 import { getAllProducts } from "@/lib/sanity/products";
 
 export const metadata: Metadata = {
@@ -157,6 +157,37 @@ export default async function About() {
               </ul>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* Founder's Message */}
+      {/* TODO: once a named founder/director is confirmed, replace the
+          "— The MSL Biotech Team" sign-off below with their real name and
+          title (e.g. "Founder & Managing Director"). Do not put a name here
+          that hasn't been confirmed by the business. */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#12213F] rounded-[32px] p-8 sm:p-12 relative overflow-hidden text-left">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+            <Quote className="size-10 text-[#7FC700] mb-6 relative z-10" />
+            <div className="relative z-10 flex flex-col gap-4 text-gray-300 text-sm leading-relaxed">
+              <p>
+                Welcome to <strong className="text-white font-bold">MSL Biotech</strong>.
+              </p>
+              <p>
+                When we founded this company, we did so with a simple yet profound vision: to ensure that high-quality, life-saving healthcare is accessible to everyone, everywhere. The global pharmaceutical landscape is evolving rapidly, but the fundamental human need for safe, reliable, and affordable medicine remains constant.
+              </p>
+              <p>
+                As a newly registered pharmaceutical enterprise, we are built on a foundation of uncompromising compliance, rigorous quality control, and cutting-edge manufacturing standards. We don&apos;t just see ourselves as a manufacturer or distributor; we see ourselves as guardians of patient well-being.
+              </p>
+              <p>
+                Every capsule, tablet, and formulation we produce carries our absolute commitment to integrity. We look forward to building lasting partnerships with healthcare professionals, distributors, and communities as we embark on this journey toward a healthier tomorrow.
+              </p>
+            </div>
+            <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
+              <p className="text-white font-bold text-sm">— The MSL Biotech Team</p>
+            </div>
           </div>
         </div>
       </section>
