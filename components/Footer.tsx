@@ -74,7 +74,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              <strong className="font-bold text-white">MSL Biotech Private Limited</strong> is a WHO-GMP and ISO certified pharmaceutical manufacturer committed to bringing premium, reliable, and affordable healthcare solutions to families nationwide.
+              <strong className="font-bold text-white">MSL Biotech Private Limited</strong> is a pharmaceutical marketing company committed to bringing premium, reliable, and affordable healthcare solutions to families nationwide.
             </p>
             <div className="flex flex-col gap-2">
               <span className="text-[10px] text-gray-500 uppercase font-bold tracking-wider">

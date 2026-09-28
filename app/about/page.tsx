@@ -5,7 +5,7 @@ import { getAllProducts } from "@/lib/sanity/products";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about MSL Biotech Private Limited's mission to save lives through affordable, high-quality, WHO-GMP certified pharmaceuticals.",
+  description: "Learn about MSL Biotech Private Limited's mission to save lives by marketing affordable, high-quality pharmaceuticals across India.",
   alternates: { canonical: "/about" },
 };
 
@@ -25,7 +25,7 @@ export default async function About() {
     },
     {
       title: "Professional Integrity",
-      desc: "Full compliance with the Drugs & Cosmetics Act and honest, transparent pricing pathways.",
+      desc: "Full compliance with the Drugs & Cosmetics Act, ethical marketing, and honest, transparent pricing.",
       icon: HelpCircle,
     },
   ];
@@ -67,7 +67,7 @@ export default async function About() {
                 Our Founding
               </h3>
               <p className="text-gray-500 text-xs leading-relaxed">
-                <strong className="font-bold text-brand-navy">MSL Biotech Private Limited</strong> (CIN: U47721AS2026PTC030611) is a newly established pharmaceutical manufacturer based in Guwahati, Assam, built around WHO-GMP aligned formulation standards and a patient-first approach to accessible healthcare.
+                <strong className="font-bold text-brand-navy">MSL Biotech Private Limited</strong> (CIN: U47721AS2026PTC030611) is a newly established pharmaceutical marketing company based in Guwahati, Assam, partnering with WHO-GMP certified manufacturers and built around a patient-first approach to accessible healthcare.
               </p>
               <div className="border-t border-gray-200/60 pt-6 mt-2 grid grid-cols-2 gap-4">
                 <div>
@@ -87,10 +87,10 @@ export default async function About() {
                 Building Accessible Healthcare Solutions From the Ground Up
               </h2>
               <p className="text-gray-500 text-sm leading-relaxed">
-                MSL Biotech was founded on the belief that premium-grade medications should not be a luxury. As a newly registered manufacturer, we are building our formulation catalog and manufacturing footprint with the same rigor and patient-first care we intend to carry through every stage of our growth.
+                MSL Biotech was founded on the belief that premium-grade medications should not be a luxury. As a newly registered marketing company, we are building our product catalog and distribution network with the same rigor and patient-first care we intend to carry through every stage of our growth.
               </p>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Whether formulating child-safe pediatric drops, sustained-release glycemic controllers for Type 2 diabetes, or broad-spectrum penicillin capsules, we apply uniform rigor. Every raw ingredient, chemical process, and batch packaging is monitored by a team of veteran Quality Assurance (QA) experts.
+                We work with trusted manufacturing partners and apply the same care to every product we bring to market, from selecting the right formulations to making sure they reach doctors, chemists, and distributors on time.
               </p>
               <div className="mt-4">
                 <Link
@@ -122,7 +122,7 @@ export default async function About() {
                   Democratizing Healthcare Access
                 </h3>
                 <p className="text-gray-600 text-xs leading-relaxed mb-8">
-                  To research, manufacture, and distribute essential life-saving and life-enhancing medications complying with the highest international standards, ensuring that every family, from the very first breath, has access to affordable, reliable healing.
+                  To market and distribute essential life-saving and life-enhancing medications complying with the highest international standards, ensuring that every family, from the very first breath, has access to affordable, reliable healing.
                 </p>
               </div>
               <ul className="space-y-3">
@@ -149,7 +149,7 @@ export default async function About() {
                 </p>
               </div>
               <ul className="space-y-3">
-                {["WHO-GMP global compliance", "Biotech formulary innovation", "Sustainable manufacturing"].map((item, idx) => (
+                {["WHO-GMP certified manufacturing partners", "Ethical pharmaceutical marketing", "Reliable distribution network"].map((item, idx) => (
                   <li key={idx} className="flex items-center gap-2 text-xs font-semibold text-brand-navy">
                     <Check className="size-4 text-primary" />
                     <span>{item}</span>
@@ -180,10 +180,10 @@ export default async function About() {
                 When we founded this company, we did so with a simple yet profound vision: to ensure that high-quality, life-saving healthcare is accessible to everyone, everywhere. The global pharmaceutical landscape is evolving rapidly, but the fundamental human need for safe, reliable, and affordable medicine remains constant.
               </p>
               <p>
-                As a newly registered pharmaceutical enterprise, we are built on a foundation of uncompromising compliance, rigorous quality control, and cutting-edge manufacturing standards. We don&apos;t just see ourselves as a manufacturer or distributor; we see ourselves as guardians of patient well-being.
+                As a newly registered pharmaceutical enterprise, we are built on a foundation of uncompromising compliance, rigorous quality control, and carefully chosen manufacturing partners. We don&apos;t just see ourselves as a marketing company or distributor; we see ourselves as guardians of patient well-being.
               </p>
               <p>
-                Every capsule, tablet, and formulation we produce carries our absolute commitment to integrity. We look forward to building lasting partnerships with healthcare professionals, distributors, and communities as we embark on this journey toward a healthier tomorrow.
+                Every capsule, tablet, and formulation we market carries our absolute commitment to integrity. We look forward to building lasting partnerships with healthcare professionals, distributors, and communities as we embark on this journey toward a healthier tomorrow.
               </p>
             </div>
             <div className="relative z-10 mt-8 pt-6 border-t border-white/10">

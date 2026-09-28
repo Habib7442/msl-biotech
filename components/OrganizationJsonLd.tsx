@@ -9,7 +9,7 @@ export default function OrganizationJsonLd() {
     alternateName: "MSL Biotech",
     url: "https://mslbiotech.in",
     logo: "https://mslbiotech.in/logo.webp",
-    description: "Pharmaceutical manufacturer in Guwahati, Assam producing tablets, capsules, syrups, and nutraceuticals.",
+    description: "Pharmaceutical marketing company in Guwahati, Assam offering tablets, capsules, syrups, and nutraceuticals.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "H.NO 60, Satgoan Road, Nowapara Bagharbari Ghy, Panjabari, GMC",

@@ -41,7 +41,7 @@ export default function TermsConditions() {
             2. Compliance with Pharmaceutical Regulations
           </h2>
           <p>
-            <strong className="font-semibold text-brand-navy">MSL Biotech</strong> is a compliant manufacturer operating under India's Drugs & Cosmetics Act. We do not engage in online transactions, direct retail sales of prescription drugs, or prescription fulfillment on this website. Our catalog is strictly enquiry-driven to coordinate supplies with registered medical practitioners, wholesale chemists, and licensed distributors.
+            <strong className="font-semibold text-brand-navy">MSL Biotech</strong> is a pharmaceutical marketing company operating in compliance with India&apos;s Drugs &amp; Cosmetics Act. Our products are manufactured by licensed third-party manufacturing partners. We do not engage in online transactions, direct retail sales of prescription drugs, or prescription fulfillment on this website. Our catalog is strictly enquiry-driven to coordinate supplies with registered medical practitioners, wholesale chemists, and licensed distributors.
           </p>
 
           <h2 className="font-heading text-lg font-bold text-brand-navy pt-4">

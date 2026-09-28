@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "MSL Biotech Private Limited",
     short_name: "MSL Biotech",
-    description: "Medicine Save Life - WHO-GMP Certified Pharmaceuticals",
+    description: "Medicine Save Life - Pharmaceutical Marketing Company, Guwahati",
     start_url: "/",
     display: "standalone",
     background_color: "#12213F",

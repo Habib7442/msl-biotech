@@ -99,7 +99,7 @@ export default function ProductsCatalog({ products }: ProductsCatalogProps) {
               Our Product Portfolio
             </h1>
             <p className="text-gray-400 text-sm max-w-xl">
-              Showcasing certified compositions formulated to save lives and support health.
+              Showcasing quality compositions marketed to save lives and support health.
             </p>
           </div>
         </div>

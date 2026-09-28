@@ -1,34 +1,35 @@
 import { Metadata } from "next";
 
-const title = "MSL Biotech | Pharmaceutical Manufacturer in Guwahati, Assam";
-const description = "MSL Biotech Private Limited is a pharmaceutical manufacturer in Guwahati, Assam, producing tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.";
+const title = "MSL Biotech | Pharmaceutical Marketing Company in Guwahati, Assam";
+const description = "MSL Biotech Private Limited is a pharmaceutical marketing company in Guwahati, Assam, offering tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.";
 
 // Keep this list grounded in what the site actually offers (see
 // context/project-overview.md and lib/data.ts CATEGORIES) — brand terms,
 // product-category terms, and the PCD-franchise/distribution angle that's
 // an explicit lead-gen goal for this site. Don't add category terms here
-// that aren't real product lines on the site.
+// that aren't real product lines on the site. MSL Biotech is a marketing
+// company, not a manufacturer — don't add "manufacturer" terms.
 const keywords = [
   "MSL Biotech",
   "MSL Biotech Private Limited",
   "Medicine Save Life",
-  "pharmaceutical manufacturer Guwahati",
+  "pharmaceutical marketing company Guwahati",
   "pharmaceutical company Assam",
-  "WHO-GMP pharma manufacturer India",
-  "tablet manufacturer Guwahati",
-  "capsule manufacturer Assam",
-  "syrup manufacturer Guwahati",
-  "nutraceutical manufacturer India",
-  "pediatric medicine manufacturer",
+  "pharma marketing company Assam",
+  "pharma marketing company Northeast India",
+  "tablets supplier Guwahati",
+  "capsules supplier Assam",
+  "syrups supplier Guwahati",
+  "nutraceutical products India",
+  "pediatric medicines Assam",
   "diabetes care medicine Assam",
-  "gastro care medicine manufacturer",
+  "gastro care medicines",
   "personal care pharma products",
   "PCD pharma franchise Assam",
   "pharma franchise Guwahati",
   "pharmaceutical distributor partnership Assam",
-  "third party pharma manufacturing Guwahati",
   "pharma company Panjabari Guwahati",
-  "generic medicine manufacturer Northeast India",
+  "generic medicines Northeast India",
 ];
 
 export const defaultSEO: Metadata = {

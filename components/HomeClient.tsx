@@ -76,7 +76,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
               </h1>
 
               <p className="text-white/95 lg:text-gray-700 font-medium text-base sm:text-lg max-w-xl leading-relaxed mx-auto lg:mx-0">
-                <strong className="font-bold text-white lg:text-brand-navy">MSL Biotech Private Limited</strong> delivers premium-quality, WHO-GMP certified pharmaceuticals. We safeguard health across generations with reliable and accessible formulations.
+                <strong className="font-bold text-white lg:text-brand-navy">MSL Biotech Private Limited</strong> markets premium-quality pharmaceuticals sourced from WHO-GMP certified manufacturing partners. We safeguard health across generations with reliable and accessible formulations.
               </p>
 
               {/* CTAs */}
@@ -102,7 +102,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
                     <Check className="size-4" />
                   </div>
                   <div className="text-[11px] font-bold text-white lg:text-brand-navy leading-tight">
-                    WHO-GMP<br /><span className="text-white/70 lg:text-gray-400 font-normal">Certified</span>
+                    WHO-GMP<br /><span className="text-white/70 lg:text-gray-400 font-normal">Certified Partners</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -146,7 +146,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
               Explore Our Product Range
             </h2>
             <p className="text-gray-500 text-sm leading-relaxed">
-              We manufacture a comprehensive catalog of therapeutic solutions. Click on a category below to explore dedicated formulations.
+              We market a comprehensive catalog of therapeutic solutions. Click on a category below to explore dedicated formulations.
             </p>
           </div>
 
@@ -323,8 +323,8 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
 
               <ul className="space-y-4 text-left max-w-md mx-auto lg:mx-0">
                 {[
-                  "State-of-the-art manufacturing complying with international guidelines",
-                  "Certified quality check at every stage of the raw-to-packaged supply chain",
+                  "Products sourced from WHO-GMP certified manufacturing partners",
+                  "Careful quality checks across our sourcing and supply chain",
                   "Affordable pricing matrices ensuring public health access",
                   "Pan-India distribution networks for timely delivery"
                 ].map((bullet, idx) => (
@@ -375,7 +375,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
             {[
               { title: "Quality", desc: "Unyielding standards of purity and formulation effectiveness.", icon: Award },
               { title: "Empathy", desc: "Focusing on patient pain relief and support.", icon: Heart },
-              { title: "Integrity", desc: "Honesty in pricing and compliant manufacturing guidelines.", icon: ShieldCheck },
+              { title: "Integrity", desc: "Honesty in pricing and ethical, compliant marketing practices.", icon: ShieldCheck },
               { title: "Innovation", desc: "Embracing medical biotech research updates.", icon: Lightbulb },
               { title: "Customer First", desc: "Prioritizing timely distribution to our chemist networks.", icon: UserCheck }
             ].map((value, idx) => {

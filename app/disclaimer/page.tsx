@@ -46,7 +46,7 @@ export default function MedicalDisclaimer() {
             1. No Physician-Patient Relationship
           </h2>
           <p>
-            Use of this website or corresponding with our team via email, WhatsApp, or contact forms does not establish a physician-patient relationship. <strong className="font-semibold text-brand-navy">MSL Biotech</strong> is a manufacturing brand and does not employ online consulting doctors, dispense medical diagnoses, or write individual prescriptions.
+            Use of this website or corresponding with our team via email, WhatsApp, or contact forms does not establish a physician-patient relationship. <strong className="font-semibold text-brand-navy">MSL Biotech</strong> is a pharmaceutical marketing company and does not employ online consulting doctors, dispense medical diagnoses, or write individual prescriptions.
           </p>
 
           <h2 className="font-heading text-lg font-bold text-brand-navy pt-4">

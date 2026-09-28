@@ -1,7 +1,7 @@
 # Project Overview
 
 ## Product Description
-MSL Biotech Private Limited is a modern, trustworthy, mobile-responsive corporate brand website and product catalog. The tagline is *"Medicine Save Life"*. The primary goal of the website is to establish digital credibility, showcase MSL Biotech's catalog (tablet, capsule, syrup, nutraceutical, pediatric, diabetes, gastro, personal care), and generate qualified business enquiries (via custom contact forms, direct telephone links, and direct WhatsApp messaging) from patients, doctors, chemists, and distribution partners.
+MSL Biotech Private Limited is a **pharmaceutical marketing company** (not a manufacturer — its products are made by third-party WHO-GMP certified manufacturing partners). Never describe MSL Biotech itself as a manufacturer or as WHO-GMP/ISO certified anywhere in copy, metadata, or structured data. This project is a modern, trustworthy, mobile-responsive corporate brand website and product catalog. The tagline is *"Medicine Save Life"*. The primary goal of the website is to establish digital credibility, showcase MSL Biotech's catalog (tablet, capsule, syrup, nutraceutical, pediatric, diabetes, gastro, personal care), and generate qualified business enquiries (via custom contact forms, direct telephone links, and direct WhatsApp messaging) from patients, doctors, chemists, and distribution partners.
 
 ## Goals
 1. **Digital Credibility**: Project a premium, trustworthy, and compliant pharmaceutical brand image (WHO-GMP / ISO messaging).
