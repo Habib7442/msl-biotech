@@ -1,5 +1,13 @@
 import { Metadata } from "next";
 
+// The one host the site is served from. Vercel 301-redirects the bare
+// mslbiotech.in to www, so every canonical, sitemap URL, and structured-data
+// URL must use www too — pointing them at the bare domain makes each page's
+// canonical a URL that redirects back to it, and Google ends up crawling
+// none of them ("Discovered - currently not indexed"). If the primary
+// domain is ever switched in Vercel, change it here and nowhere else.
+export const SITE_URL = "https://www.mslbiotech.in";
+
 const title = "MSL Biotech | Pharmaceutical Marketing Company in Guwahati, Assam";
 const description = "MSL Biotech Private Limited is a pharmaceutical marketing company in Guwahati, Assam, offering tablets, capsules, syrups, and nutraceuticals. Medicine Save Life.";
 
@@ -39,10 +47,10 @@ export const defaultSEO: Metadata = {
   },
   description,
   keywords,
-  authors: [{ name: "MSL Biotech Private Limited", url: "https://mslbiotech.in" }],
+  authors: [{ name: "MSL Biotech Private Limited", url: SITE_URL }],
   creator: "MSL Biotech Private Limited",
   publisher: "MSL Biotech Private Limited",
-  metadataBase: new URL("https://mslbiotech.in"),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: "/",
   },
@@ -70,7 +78,7 @@ export const defaultSEO: Metadata = {
   openGraph: {
     title,
     description,
-    url: "https://mslbiotech.in",
+    url: SITE_URL,
     siteName: "MSL Biotech",
     images: [
       {

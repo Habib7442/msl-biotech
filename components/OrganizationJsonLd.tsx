@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/seo";
+
 // Structured data (schema.org Organization) for search engines. Every field
 // here must be real, verifiable info already shown elsewhere on the site
 // (Footer, Contact page) — no invented stats or unverified certifications.
@@ -7,8 +9,8 @@ export default function OrganizationJsonLd() {
     "@type": "Organization",
     name: "MSL Biotech Private Limited",
     alternateName: "MSL Biotech",
-    url: "https://mslbiotech.in",
-    logo: "https://mslbiotech.in/logo.webp",
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.webp`,
     description: "Pharmaceutical marketing company in Guwahati, Assam offering tablets, capsules, syrups, and nutraceuticals.",
     address: {
       "@type": "PostalAddress",
