@@ -33,6 +33,23 @@ export function rateLimited(key: string, limit: number, windowMs: number): boole
   return false;
 }
 
+/**
+ * The visitor's IP, for the per-IP limits above. Only trustworthy when the
+ * host sets the header itself; a client-supplied value would let one caller
+ * look like many and slip past the limits.
+ *
+ * - On Vercel (production): Vercel overwrites X-Forwarded-For and does not
+ *   forward client-supplied IPs, to prevent spoofing. `x-vercel-forwarded-for`
+ *   carries the same value and stays correct even if a proxy is ever put in
+ *   front of Vercel and rewrites X-Forwarded-For, so it is read first.
+ *   https://vercel.com/docs/headers/request-headers#x-forwarded-for
+ * - Anywhere else: the reverse proxy must overwrite (not append to)
+ *   X-Forwarded-For / X-Real-IP, or these limits can be bypassed.
+ */
 export function clientIp(headers: Headers): string {
-  return headers.get("x-forwarded-for")?.split(",")[0]?.trim() || headers.get("x-real-ip") || "unknown";
+  const first = (value: string | null) => value?.split(",")[0]?.trim() || null;
+  if (process.env.VERCEL) {
+    return first(headers.get("x-vercel-forwarded-for")) ?? first(headers.get("x-forwarded-for")) ?? "unknown";
+  }
+  return first(headers.get("x-forwarded-for")) ?? first(headers.get("x-real-ip")) ?? "unknown";
 }

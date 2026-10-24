@@ -33,12 +33,17 @@ export async function POST(request: NextRequest) {
     return fail("You’ve sent several reviews recently. Please try again later.", 429);
   }
 
-  let payload: Payload;
+  let parsed: unknown;
   try {
-    payload = (await request.json()) as Payload;
+    parsed = await request.json();
   } catch {
     return fail("Invalid request.");
   }
+  // Valid JSON can still be null, a number or an array; only an object is a payload.
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    return fail("Invalid request.");
+  }
+  const payload = parsed as Payload;
 
   // Bots fill the hidden field or submit instantly. Answer "ok" so they
   // don't learn which check caught them, but store nothing.

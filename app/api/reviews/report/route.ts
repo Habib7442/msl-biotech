@@ -11,13 +11,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false }, { status: 429 });
   }
 
-  let id = "";
+  let parsed: unknown;
   try {
-    const payload = (await request.json()) as { id?: unknown };
-    id = typeof payload.id === "string" ? payload.id : "";
+    parsed = await request.json();
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
+  // Valid JSON can still be null, a number or an array; only an object is a payload.
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    return NextResponse.json({ ok: false }, { status: 400 });
+  }
+  const payload = parsed as { id?: unknown };
+  const id = typeof payload.id === "string" ? payload.id : "";
   if (!/^review\.[A-Za-z0-9_-]{1,100}$/.test(id)) return NextResponse.json({ ok: false }, { status: 400 });
   // One report per visitor per review.
   if (rateLimited(`report:${ip}:${id}`, 1, 24 * 60 * 60 * 1000)) return NextResponse.json({ ok: true });
