@@ -55,7 +55,24 @@
 ## Next Up
 - A separate custom admin panel now exists at `E:\Web Dev\msl_biotech-admin` (built 2026-10-23 from the client spec "Website Developer Requirements: SEO, Products, Admin, Reviews"). It writes to this site's Sanity dataset: products (+ `sku`, `status`, `seo`), `post` (blog), private `review.*` documents, `siteSettings` (SEO defaults, redirects) and a private activity log. Unit 17 wired all of it into this site.
 - **Deploy checklist:** in Vercel, set `SANITY_API_WRITE_TOKEN` (needed for reviews) and `SANITY_REVALIDATE_SECRET` (same value as the admin's) on this project. Then, optionally, create a Sanity webhook (POST `https://www.mslbiotech.in/api/revalidate`, projection `{_type}`, same secret) so Studio edits refresh instantly too.
-- **Lint cleanup (not started):** make `npm run lint` pass. Fix the 9 errors and 4 warnings listed in `context/specs/17-admin-integration.md` → Verification (escape the apostrophes and quotes, remove unused imports, rework the `setState` in `ProductsCatalog.tsx`'s effect).
+- **Lint cleanup (not started):** make `npm run lint` pass. These are the 9 errors and 4 warnings recorded in `context/specs/17-admin-integration.md` → Verification, each with its required fix:
+  - `react/no-unescaped-entities` (8 errors). Replace the character with its entity (or a typographic one); the visible text stays the same:
+    - `app/about/page.tsx:145`: `India's` → `India&apos;s`
+    - `app/contact/page.tsx:168` (×2): `"Distributor Partnership"` → `&ldquo;Distributor Partnership&rdquo;`
+    - `app/contact/page.tsx:192`: `We've` → `We&apos;ve`
+    - `app/disclaimer/page.tsx:63` (×2): the two `"` around the quoted warning → `&ldquo;` … `&rdquo;`
+    - `app/privacy/page.tsx:37`: `India's` → `India&apos;s`
+    - `components/EnquiryModal.tsx:145`: `We've` → `We&apos;ve`
+  - `react-hooks/set-state-in-effect` (1 error), `components/ProductsCatalog.tsx:29`: the effect at lines 27–39 copies `?category=` and `?search=` into state. Remove the effect.
+    - Derive the category in render: `const activeCategory = categoryParam && CATEGORIES.includes(categoryParam) ? categoryParam : "All"`, and drop that `useState`.
+    - Keep `searchQuery` state for the controlled input, but resync it with the "adjust state while rendering" pattern: track the last seen `searchParam` in state, and call `setSearchQuery` during render when it changes.
+    - Re-test filtering, search, the header search link and browser Back.
+  - `@typescript-eslint/no-unused-vars` (3 warnings). All three are unused **imports**; delete each one:
+    - `app/products/[id]/page.tsx:14`: `ExternalLink` from the `lucide-react` import list
+    - `components/FloatingContact.tsx:4`: `MessageSquare` from `import { MessageSquare, ArrowUp } from "lucide-react"`
+    - `components/Footer.tsx:5`: `import Image from "next/image"`. Resolved by the next fix, which uses it, rather than by deleting it.
+  - `@next/next/no-img-element` (1 warning), `components/Footer.tsx:70`: replace the logo `<img src="/logo.webp" …>` with `<Image src="/logo.webp" alt="MSL Biotech Logo" width={317} height={289} className="h-12 w-auto object-contain rounded-xl overflow-hidden" />`. 317×289 is the file's real size; the class keeps the 48 px height. This also clears the unused `Image` warning above.
+  - **Done when:** `npm run lint` exits 0, `npx tsc --noEmit` and `npm run build` pass, and the touched pages look the same at 375 px and 1280 px.
 
 ## Open Questions
 - Resolved: admin panel CMS = Sanity, embedded at `/admin` in this app, schema scoped to catalog fields only (no reviews/wishlist/compare) — decided directly with the user on 2026-09-14.
