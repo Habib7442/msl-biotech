@@ -47,7 +47,7 @@
   - **Settings:** SEO defaults in the root layout, redirects in `proxy.ts` (308/307, 60 s cache), `sitemapExclude` in the sitemap.
   - **Revalidation:** `POST /api/revalidate` (signed, expires tags `product`/`post`/`review`/`siteSettings`). All Sanity fetches are tagged.
   - **Studio:** new `post`, `siteSettings` and `seo` types; product gains `sku`/`status`/`seo`.
-  - **Verified:** typecheck and build pass. A 24-check browser test ran against the local admin + site on live data: hide → 404 and back; SEO title and noindex; review submit → pending → approve → shown + JSON-LD → report; spam and invalid submissions rejected; article publish → list, page, sitemap; redirect 308; bad revalidate signature 401; 375 px with no horizontal scroll. All test data removed. Lint errors that remain are pre-existing ones in untouched files (about/contact/disclaimer/privacy/EnquiryModal/FloatingContact/ProductsCatalog).
+  - **Verified:** typecheck and build pass. A 24-check browser test ran against the local admin + site on live data: hide → 404 and back; SEO title and noindex; review submit → pending → approve → shown + JSON-LD → report; spam and invalid submissions rejected; article publish → list, page, sitemap; redirect 308; bad revalidate signature 401; 375 px with no horizontal scroll. All test data removed. `npm run lint` still **fails**: 9 errors and 4 warnings, all on lines older than this unit (checked with `git blame`). Most are `react/no-unescaped-entities` in about/contact/disclaimer/privacy/EnquiryModal, plus one `react-hooks/set-state-in-effect` in ProductsCatalog. The full list is in the spec's Verification section. They're queued under Next Up as a cleanup task.
 
 ## In Progress
 - None.
@@ -55,6 +55,7 @@
 ## Next Up
 - A separate custom admin panel now exists at `E:\Web Dev\msl_biotech-admin` (built 2026-10-23 from the client spec "Website Developer Requirements: SEO, Products, Admin, Reviews"). It writes to this site's Sanity dataset: products (+ `sku`, `status`, `seo`), `post` (blog), private `review.*` documents, `siteSettings` (SEO defaults, redirects) and a private activity log. Unit 17 wired all of it into this site.
 - **Deploy checklist:** in Vercel, set `SANITY_API_WRITE_TOKEN` (needed for reviews) and `SANITY_REVALIDATE_SECRET` (same value as the admin's) on this project. Then, optionally, create a Sanity webhook (POST `https://www.mslbiotech.in/api/revalidate`, projection `{_type}`, same secret) so Studio edits refresh instantly too.
+- **Lint cleanup (not started):** make `npm run lint` pass. Fix the 9 errors and 4 warnings listed in `context/specs/17-admin-integration.md` → Verification (escape the apostrophes and quotes, remove unused imports, rework the `setState` in `ProductsCatalog.tsx`'s effect).
 
 ## Open Questions
 - Resolved: admin panel CMS = Sanity, embedded at `/admin` in this app, schema scoped to catalog fields only (no reviews/wishlist/compare) — decided directly with the user on 2026-09-14.

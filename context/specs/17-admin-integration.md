@@ -39,7 +39,14 @@ Make the public website read everything the separate admin panel (`E:\Web Dev\ms
 - Changing the fixed product category list.
 
 ## Verification
-- `npx tsc --noEmit`, `npm run lint`, `npm run build` pass.
+- `npx tsc --noEmit` and `npm run build` pass.
+- `npm run lint` **fails** (exit code 1): 9 errors and 4 warnings, all on lines that predate this unit (checked with `git blame`), and none in files this unit added. Result as of 2026-10-24:
+  - `react/no-unescaped-entities` (errors): `app/about/page.tsx:145`, `app/contact/page.tsx:168` (×2), `app/contact/page.tsx:192`, `app/disclaimer/page.tsx:63` (×2), `app/privacy/page.tsx:37`, `components/EnquiryModal.tsx:145`
+  - `react-hooks/set-state-in-effect` (error): `components/ProductsCatalog.tsx:29`
+  - `@typescript-eslint/no-unused-vars` (warnings): `app/products/[id]/page.tsx:14`, `components/FloatingContact.tsx:4`, `components/Footer.tsx:5`
+  - `@next/next/no-img-element` (warning): `components/Footer.tsx:70`
+
+  This unit edited `app/contact/page.tsx`, `app/privacy/page.tsx`, `components/Footer.tsx` and `app/products/[id]/page.tsx`, but not the flagged lines. The `app/privacy/page.tsx:37` line was changed only for the email address; its unescaped `India's` was already there. Fixing these is a separate cleanup task.
 - Hidden product → 404 and absent from `/products` and the sitemap (verified with a temporary test product).
 - Blog list / article render with a temporary test post; JSON-LD validates as JSON; the sitemap includes it.
 - Review submit → pending doc in Sanity, not shown; approve → shown with average; report increments the count. Test data deleted afterwards.
