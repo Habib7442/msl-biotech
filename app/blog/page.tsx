@@ -8,24 +8,35 @@ import { cn } from "@/lib/utils";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Health information, product guides and company news from MSL Biotech, a pharmaceutical marketing company in Guwahati, Assam.",
-  alternates: { canonical: "/blog" },
-};
-
 interface Props {
   searchParams: Promise<{ page?: string }>;
 }
 
+/** ?page= → a page number of 1 or more ("abc", "0" and "-3" all mean page 1). */
+function parsePage(value: string | undefined) {
+  return Math.max(1, Number.parseInt(value ?? "1", 10) || 1);
+}
+
+/** Page 1 is plain /blog; later pages keep their own URL. */
+const pageHref = (p: number) => (p === 1 ? "/blog" : `/blog?page=${p}`);
+
+// Each listing page is its own canonical (it shows different posts), so
+// /blog?page=2 points to itself rather than to /blog. Junk values like
+// ?page=abc or ?page=1 resolve to page 1 and canonicalise to plain /blog.
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const page = parsePage((await searchParams).page);
+  return {
+    title: page === 1 ? "Blog" : `Blog – Page ${page}`,
+    description: "Health information, product guides and company news from MSL Biotech, a pharmaceutical marketing company in Guwahati, Assam.",
+    alternates: { canonical: pageHref(page) },
+  };
+}
+
 export default async function BlogPage({ searchParams }: Props) {
-  const { page: pageParam } = await searchParams;
-  const page = Math.max(1, Number.parseInt(pageParam ?? "1", 10) || 1);
+  const page = parsePage((await searchParams).page);
   const { items, total } = await getPostsPage(page);
   const pages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
   if (page > pages) notFound();
-
-  const pageHref = (p: number) => (p === 1 ? "/blog" : `/blog?page=${p}`);
 
   return (
     <div className="w-full flex-grow flex flex-col">
