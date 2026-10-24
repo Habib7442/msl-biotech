@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { normalizePath, redirectTarget } from "@/lib/redirects";
+import { compileRules, normalizePath, redirectTarget, type RedirectRule } from "@/lib/redirects";
 import { apiVersion, dataset, projectId } from "@/lib/sanity/env";
 
 // Redirects managed in the admin panel (Settings → Redirects; slug changes
@@ -8,22 +8,21 @@ import { apiVersion, dataset, projectId } from "@/lib/sanity/env";
 // 60 s per instance and read from Sanity's public CDN (siteSettings is
 // public data).
 
-type Rule = { from: string; to: string; permanent: boolean | null };
-
 const TTL_MS = 60_000;
-let cache: { at: number; rules: Map<string, Rule> } | null = null;
-let inflight: Promise<Map<string, Rule>> | null = null;
+let cache: { at: number; rules: Map<string, RedirectRule> } | null = null;
+let inflight: Promise<Map<string, RedirectRule>> | null = null;
 
-async function loadRules(): Promise<Map<string, Rule>> {
+async function loadRules(): Promise<Map<string, RedirectRule>> {
   const query = encodeURIComponent(`*[_id == "siteSettings"][0].redirects[defined(from) && defined(to)]{ from, to, permanent }`);
   const url = `https://${projectId}.apicdn.sanity.io/v${apiVersion}/data/query/${dataset}?query=${query}`;
   const res = await fetch(url, { signal: AbortSignal.timeout(1500) });
   if (!res.ok) throw new Error(`Sanity ${res.status}`);
-  const { result } = (await res.json()) as { result: Rule[] | null };
-  return new Map((result ?? []).filter((r) => r.from.startsWith("/")).map((r) => [normalizePath(r.from), r]));
+  const { result } = (await res.json()) as { result: RedirectRule[] | null };
+  // Checked as a whole once per load: cycles dropped, chains collapsed.
+  return compileRules(result ?? []);
 }
 
-async function getRules(): Promise<Map<string, Rule>> {
+async function getRules(): Promise<Map<string, RedirectRule>> {
   if (cache && Date.now() - cache.at < TTL_MS) return cache.rules;
   inflight ??= loadRules()
     .then((rules) => {
@@ -33,7 +32,7 @@ async function getRules(): Promise<Map<string, Rule>> {
     .catch(() => {
       // Sanity unreachable: keep serving with the last known rules (or none)
       // and try again after the TTL rather than on every request.
-      const rules = cache?.rules ?? new Map<string, Rule>();
+      const rules = cache?.rules ?? new Map<string, RedirectRule>();
       cache = { at: Date.now(), rules };
       return rules;
     })
