@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getSiteContact } from "@/lib/sanity/settings";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -7,7 +8,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-export default function PrivacyPolicy() {
+export default async function PrivacyPolicy() {
+  const contact = await getSiteContact();
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-28 pb-16 md:pt-36 md:pb-20 text-left">
       {/* Breadcrumbs */}
@@ -34,7 +36,7 @@ export default function PrivacyPolicy() {
             1. Consent & Compliance (India DPDP Act)
           </h2>
           <p>
-            By submitting information through our contact or product enquiry forms, you explicitly consent to the collection and storage of your personal details (such as Name, Email, and Phone number) by <strong className="font-semibold text-brand-navy">MSL Biotech</strong>. In compliance with India's <strong>Digital Personal Data Protection (DPDP) Act</strong>, we only process data for the explicit purpose of responding to your business inquiries. You retain the right to withdraw your consent or request data correction/erasure at any time by emailing us at <a href="mailto:ltdmslbiotechpvt@gmail.com" className="text-primary font-semibold hover:underline">ltdmslbiotechpvt@gmail.com</a>.
+            By submitting information through our contact or product enquiry forms, you explicitly consent to the collection and storage of your personal details (such as Name, Email, and Phone number) by <strong className="font-semibold text-brand-navy">MSL Biotech</strong>. In compliance with India's <strong>Digital Personal Data Protection (DPDP) Act</strong>, we only process data for the explicit purpose of responding to your business inquiries. You retain the right to withdraw your consent or request data correction/erasure at any time by emailing us at <a href={`mailto:${contact.email}`} className="text-primary font-semibold hover:underline">{contact.email}</a>.
           </p>
 
           <h2 className="font-heading text-lg font-bold text-brand-navy pt-4">

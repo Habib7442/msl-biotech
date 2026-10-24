@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import SiteChrome from "@/components/SiteChrome";
 
 import { urlForImage } from "@/lib/sanity/image";
-import { getSiteSettings } from "@/lib/sanity/settings";
+import { getSiteContact, getSiteSettings } from "@/lib/sanity/settings";
 import { defaultSEO } from "@/lib/seo";
 
 const inter = Inter({
@@ -55,11 +55,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Contact details from the admin panel (same cached read as the metadata above).
+  const contact = await getSiteContact();
   return (
     <html
       lang="en"
@@ -72,7 +74,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-[#F4F7FB] text-[#12213F]">
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome contact={contact}>{children}</SiteChrome>
       </body>
     </html>
   );

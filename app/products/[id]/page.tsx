@@ -19,6 +19,8 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import ProductReviews from "@/components/reviews/ProductReviews";
 import { getAllProducts, getAllProductSlugs, getProductBySlug } from "@/lib/sanity/products";
 import { getApprovedReviews } from "@/lib/sanity/reviews";
+import { whatsappLink } from "@/lib/contact";
+import { getSiteContact } from "@/lib/sanity/settings";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -88,7 +90,8 @@ export default async function ProductDetailPage({ params }: Props) {
   }
 
   const waPrefill = `Hello MSL Biotech, I'd like to enquire about ${product.name} (Composition: ${product.composition}).`;
-  const waLink = `https://wa.me/919859757710?text=${encodeURIComponent(waPrefill)}`;
+  const contact = await getSiteContact();
+  const waLink = whatsappLink(contact.whatsapp, waPrefill);
 
   return (
     <div className="w-full">

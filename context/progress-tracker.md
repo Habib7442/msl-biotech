@@ -49,6 +49,17 @@
   - **Studio:** new `post`, `siteSettings` and `seo` types; product gains `sku`/`status`/`seo`.
   - **Verified:** typecheck and build pass. A 24-check browser test ran against the local admin + site on live data: hide → 404 and back; SEO title and noindex; review submit → pending → approve → shown + JSON-LD → report; spam and invalid submissions rejected; article publish → list, page, sitemap; redirect 308; bad revalidate signature 401; 375 px with no horizontal scroll. All test data removed. `npm run lint` still **fails**: 9 errors and 4 warnings, all on lines older than this unit (checked with `git blame`). Most are `react/no-unescaped-entities` in about/contact/disclaimer/privacy/EnquiryModal, plus one `react-hooks/set-state-in-effect` in ProductsCatalog. The full list is in the spec's Verification section. They're queued under Next Up as a cleanup task.
 
+- [x] Unit 18 (2026-10-24): Contact details from the admin panel.
+  - **What:** phone, WhatsApp, email, office address and social links are read from `siteSettings` (admin → Settings) in `lib/contact.ts`. Every field falls back to the previous hard-coded value when empty.
+  - **Where it's used:**
+    - client components read it through `ContactProvider` / `useContact()`, which the root layout fills on the server
+    - server pages (product detail, privacy) call `getSiteContact()`
+    - header, footer, floating WhatsApp button, homepage WhatsApp link, contact page (including the distributor WhatsApp link), enquiry modal and product enquiry link all use these values, as does the Organization JSON-LD (telephone, email, address, `sameAs`)
+    - the contact-page map switches to an address search when a custom address is set
+    - social icons appear in the footer only when a link is set (`components/SocialLinks.tsx`)
+  - **Admin side:** the Settings page was reduced to Contact details, Social media links and Moved pages (redirects) for non-technical staff. SEO defaults, share image and sitemap exclusions were removed from the form, are never touched by its save, and stay editable in Studio.
+  - **Verified:** a 16-check end-to-end test (admin save → website on all pages + JSON-LD; fallback on clear; hidden field preserved).
+
 ## In Progress
 - None.
 

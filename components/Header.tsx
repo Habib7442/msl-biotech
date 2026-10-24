@@ -6,8 +6,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, Phone, ArrowRight } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { useContact } from "@/components/ContactProvider";
+import { telHref } from "@/lib/contact";
 
 export default function Header() {
+  const contact = useContact();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
@@ -86,11 +89,11 @@ export default function Header() {
           {/* Action CTAs */}
           <div className="hidden md:flex items-center gap-6">
             <a
-              href="tel:+919859757710"
+              href={telHref(contact.phone)}
               className="flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
             >
               <Phone className="size-4 animate-pulse" />
-              <span>+91 98597 57710</span>
+              <span>{contact.phone}</span>
             </a>
             <Link
               href="/contact"
@@ -104,7 +107,7 @@ export default function Header() {
           {/* Mobile Menu Button using Shadcn Sheet */}
           <div className="flex items-center gap-4 md:hidden">
             <a
-              href="tel:+919859757710"
+              href={telHref(contact.phone)}
               className={`flex items-center justify-center p-2 rounded-xl transition-colors ${
                 showSolid
                   ? "text-primary bg-[#F4F7FB]"
@@ -150,11 +153,11 @@ export default function Header() {
 
                 <div className="flex flex-col gap-4 mt-auto">
                   <a
-                    href="tel:+919859757710"
+                    href={telHref(contact.phone)}
                     className="flex items-center justify-center gap-3 bg-[#F4F7FB] text-primary font-bold py-3.5 rounded-xl text-sm"
                   >
                     <Phone className="size-4" />
-                    <span>Call +91 98597 57710</span>
+                    <span>Call {contact.phone}</span>
                   </a>
                   <Link
                     href="/contact"

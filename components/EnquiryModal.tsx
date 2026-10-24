@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { X, CheckCircle, Loader2, ArrowRight } from "lucide-react";
 import { buildEnquiryWhatsAppLink } from "@/lib/whatsapp";
+import { useContact } from "@/components/ContactProvider";
 
 export default function EnquiryModal() {
+  const contact = useContact();
   const [isOpen, setIsOpen] = useState(false);
   const [subject, setSubject] = useState("");
   const [name, setName] = useState("");
@@ -90,7 +92,7 @@ export default function EnquiryModal() {
     setLoading(true);
     setErrors({});
 
-    const waLink = buildEnquiryWhatsAppLink({
+    const waLink = buildEnquiryWhatsAppLink(contact.whatsapp, {
       name,
       email,
       phone,

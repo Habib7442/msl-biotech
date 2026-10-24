@@ -4,8 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Clock, Send, Check, Loader2, ArrowRight } from "lucide-react";
 import { buildEnquiryWhatsAppLink } from "@/lib/whatsapp";
+import { useContact } from "@/components/ContactProvider";
+import { telHref, whatsappLink } from "@/lib/contact";
 
 export default function Contact() {
+  const contact = useContact();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -61,7 +64,7 @@ export default function Contact() {
     setLoading(true);
     setErrors({});
 
-    const waLink = buildEnquiryWhatsAppLink({ name, email, phone, subject, message });
+    const waLink = buildEnquiryWhatsAppLink(contact.whatsapp, { name, email, phone, subject, message });
     window.open(waLink, "_blank", "noopener,noreferrer");
 
     setIsSuccess(true);
@@ -116,7 +119,7 @@ export default function Contact() {
                   <div>
                     <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">Corporate HQ</h4>
                     <p className="text-gray-500 text-xs leading-relaxed">
-                      H.NO 60, Satgoan Road, Nowapara Bagharbari Ghy, Panjabari, GMC, Kamrup - 781037, Assam, India
+                      {contact.address}
                     </p>
                   </div>
                 </div>
@@ -127,8 +130,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">Direct Dial</h4>
-                    <a href="tel:+919859757710" className="text-gray-500 hover:text-primary text-xs font-semibold break-all">
-                      +91 98597 57710
+                    <a href={telHref(contact.phone)} className="text-gray-500 hover:text-primary text-xs font-semibold break-all">
+                      {contact.phone}
                     </a>
                   </div>
                 </div>
@@ -139,8 +142,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">Email Channel</h4>
-                    <a href="mailto:ltdmslbiotechpvt@gmail.com" className="text-gray-500 hover:text-primary text-xs font-semibold break-all">
-                      ltdmslbiotechpvt@gmail.com
+                    <a href={`mailto:${contact.email}`} className="text-gray-500 hover:text-primary text-xs font-semibold break-all">
+                      {contact.email}
                     </a>
                   </div>
                 </div>
@@ -168,7 +171,7 @@ export default function Contact() {
                   Interested in distributing our products or launching a franchise associate store? Use the contact form select "Distributor Partnership" to speak with our business development director.
                 </p>
                 <a
-                  href="https://wa.me/919859757710?text=Hello%20MSL%20Biotech,%20I%20am%20interested%20in%20a%20distributor%20franchise%20partnership."
+                  href={whatsappLink(contact.whatsapp, "Hello MSL Biotech, I am interested in a distributor franchise partnership.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80"
@@ -356,7 +359,13 @@ export default function Contact() {
       {/* Styled Google Map Section */}
       <section className="w-full h-[450px] relative border-t border-gray-100">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14327.97491748281!2d91.81596765171789!3d26.131758957582524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375a5edbfa3cfcfd%3A0xe543ef6ef6951b14!2sPanjabari%2C%20Guwahati%2C%20Assam%20781037!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          // The pinned map shows the original office; an address changed in
+          // the admin panel is looked up by text instead.
+          src={
+            contact.customAddress
+              ? `https://maps.google.com/maps?q=${encodeURIComponent(contact.address)}&output=embed`
+              : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14327.97491748281!2d91.81596765171789!3d26.131758957582524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375a5edbfa3cfcfd%3A0xe543ef6ef6951b14!2sPanjabari%2C%20Guwahati%2C%20Assam%20781037!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          }
           width="100%"
           height="100%"
           style={{ border: 0 }}

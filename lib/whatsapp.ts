@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "919859757710";
+import { whatsappLink } from "@/lib/contact";
 
 interface EnquiryDetails {
   name: string;
@@ -8,7 +8,8 @@ interface EnquiryDetails {
   message: string;
 }
 
-export function buildEnquiryWhatsAppLink({ name, email, phone, subject, message }: EnquiryDetails): string {
+/** `to`: the company's WhatsApp number (from useContact()), in any format. */
+export function buildEnquiryWhatsAppLink(to: string, { name, email, phone, subject, message }: EnquiryDetails): string {
   const text = `New Enquiry from Website\n\nEnquiring About: ${subject}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  return whatsappLink(to, text);
 }

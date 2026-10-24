@@ -8,12 +8,15 @@ import EnquiryModal from "@/components/EnquiryModal";
 import Preloader from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
 import OrganizationJsonLd from "@/components/OrganizationJsonLd";
+import { ContactProvider } from "@/components/ContactProvider";
+import type { SiteContact } from "@/lib/contact";
 
 interface SiteChromeProps {
+  contact: SiteContact;
   children: React.ReactNode;
 }
 
-export default function SiteChrome({ children }: SiteChromeProps) {
+export default function SiteChrome({ contact, children }: SiteChromeProps) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
@@ -22,8 +25,8 @@ export default function SiteChrome({ children }: SiteChromeProps) {
   }
 
   return (
-    <>
-      <OrganizationJsonLd />
+    <ContactProvider contact={contact}>
+      <OrganizationJsonLd contact={contact} />
       <Preloader />
       <SmoothScroll>
         <Header />
@@ -32,6 +35,6 @@ export default function SiteChrome({ children }: SiteChromeProps) {
         <FloatingContact />
         <EnquiryModal />
       </SmoothScroll>
-    </>
+    </ContactProvider>
   );
 }

@@ -93,5 +93,10 @@ export const SITE_SETTINGS_QUERY = groq`*[_id == "siteSettings"][0]{
   defaultSeoDescription,
   defaultOgImage,
   "redirects": redirects[defined(from) && defined(to)]{ from, to, permanent },
-  sitemapExclude
+  sitemapExclude,
+  phone,
+  whatsapp,
+  email,
+  address,
+  social { facebook, instagram, linkedin, youtube }
 }`;

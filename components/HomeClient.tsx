@@ -14,12 +14,15 @@ import {
   UserCheck
 } from "lucide-react";
 import { CATEGORIES, Product } from "@/lib/data";
+import { useContact } from "@/components/ContactProvider";
+import { whatsappLink } from "@/lib/contact";
 
 interface HomeClientProps {
   featuredProducts: Product[];
 }
 
 export default function HomeClient({ featuredProducts }: HomeClientProps) {
+  const contact = useContact();
   const categoryMetaData: { [key: string]: { tagline: string; color: string; cardBg: string; imagePath: string } } = {
     "Tablets": { tagline: "Solid Oral Dose", color: "border-blue-200 bg-blue-100", cardBg: "bg-blue-50 hover:bg-blue-100 border-blue-200", imagePath: "/images/categories/tablets.png" },
     "Capsules": { tagline: "Gelatin Shelled", color: "border-purple-200 bg-purple-100", cardBg: "bg-purple-50 hover:bg-purple-100 border-purple-200", imagePath: "/images/categories/capsules.png" },
@@ -418,7 +421,7 @@ export default function HomeClient({ featuredProducts }: HomeClientProps) {
               </p>
             </div>
             <a
-              href="https://wa.me/919859757710"
+              href={whatsappLink(contact.whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#12213F] hover:bg-[#1c3057] text-white font-bold px-8 py-4 rounded-xl text-sm transition-all hover:scale-105 shadow-lg flex items-center justify-center gap-2 cursor-pointer"

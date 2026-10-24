@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { MessageSquare, ArrowUp } from "lucide-react";
+import { useContact } from "@/components/ContactProvider";
+import { whatsappLink } from "@/lib/contact";
 
 export default function FloatingContact() {
+  const contact = useContact();
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function FloatingContact() {
 
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/919859757710?text=Hello%20MSL%20Biotech,%20I%27d%20like%20to%20enquire%20about%20your%20products."
+        href={whatsappLink(contact.whatsapp, "Hello MSL Biotech, I'd like to enquire about your products.")}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative flex items-center justify-center size-12 rounded-full bg-[#25D366] text-white shadow-[0_4px_20px_rgba(37,211,102,0.3)] transition-all hover:scale-105 active:scale-95 duration-200 cursor-pointer"

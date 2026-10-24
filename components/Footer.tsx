@@ -5,8 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
 import { CATEGORIES } from "@/lib/data";
+import { useContact } from "@/components/ContactProvider";
+import { telHref } from "@/lib/contact";
+import SocialLinks from "@/components/SocialLinks";
 
 export default function Footer() {
+  const contact = useContact();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -85,6 +89,7 @@ export default function Footer() {
                 <span>Medicine Save Life</span>
               </div>
             </div>
+            <SocialLinks />
           </div>
 
           {/* Categories Index */}
@@ -144,25 +149,25 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="size-5 text-[#7FC700] shrink-0 mt-0.5" />
                 <span className="text-gray-400 text-sm leading-relaxed">
-                  H.NO 60, Satgoan Road, Nowapara Bagharbari Ghy, Panjabari, GMC, Kamrup - 781037, Assam, India
+                  {contact.address}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="size-5 text-[#7FC700] shrink-0" />
                 <a
-                  href="tel:+919859757710"
+                  href={telHref(contact.phone)}
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  +91 98597 57710
+                  {contact.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="size-5 text-[#7FC700] shrink-0" />
                 <a
-                  href="mailto:ltdmslbiotechpvt@gmail.com"
+                  href={`mailto:${contact.email}`}
                   className="text-gray-400 hover:text-white text-sm transition-colors break-all"
                 >
-                  ltdmslbiotechpvt@gmail.com
+                  {contact.email}
                 </a>
               </li>
             </ul>
