@@ -15,7 +15,10 @@ import {
 } from "lucide-react";
 import EnquiryButton from "@/components/EnquiryButton";
 import ProductGallery from "@/components/ProductGallery";
+import ProductJsonLd from "@/components/ProductJsonLd";
+import ProductReviews from "@/components/reviews/ProductReviews";
 import { getAllProducts, getAllProductSlugs, getProductBySlug } from "@/lib/sanity/products";
+import { getApprovedReviews } from "@/lib/sanity/reviews";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -38,14 +41,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // SEO fields from the admin panel win; each falls back to the old default.
+  const seo = product.seo;
+  const description =
+    seo?.description ||
+    `Read compositions, packaging details, and therapeutic indications for ${product.name}. Medicine Save Life.`;
+
   return {
-    title: product.name,
-    description: `Read compositions, packaging details, and therapeutic indications for ${product.name}. Medicine Save Life.`,
-    alternates: { canonical: `/products/${id}` },
+    // An SEO title is written in full (usually with the brand), so skip the
+    // "| MSL Biotech" template to avoid doubling it.
+    title: seo?.title ? { absolute: seo.title } : product.name,
+    description,
+    alternates: { canonical: seo?.canonical || `/products/${id}` },
+    ...(seo?.noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: product.hasPhoto
       ? {
-          title: `${product.name} | MSL Biotech`,
-          description: `Composition: ${product.composition}`,
+          title: seo?.title || `${product.name} | MSL Biotech`,
+          description: seo?.description || `Composition: ${product.composition}`,
           images: [{ url: product.image }],
         }
       : undefined,
@@ -60,7 +72,10 @@ export default async function ProductDetailPage({ params }: Props) {
     notFound();
   }
 
-  const allProducts = await getAllProducts();
+  const [allProducts, reviewSummary] = await Promise.all([
+    getAllProducts(),
+    getApprovedReviews(product.sanityId),
+  ]);
 
   // Get related products (same category, excluding current product)
   let related = allProducts.filter(
@@ -77,6 +92,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <div className="w-full">
+      <ProductJsonLd product={product} reviews={reviewSummary} />
       {/* Subpage Navigation Bar */}
       <section className="bg-white border-b border-gray-100 pt-28 pb-6 md:pt-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -227,6 +243,8 @@ export default async function ProductDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      <ProductReviews productId={product.sanityId} productName={product.name} summary={reviewSummary} />
 
       {/* Related products listing */}
       {related.length > 0 && (

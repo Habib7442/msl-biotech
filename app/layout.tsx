@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import SiteChrome from "@/components/SiteChrome";
 
+import { urlForImage } from "@/lib/sanity/image";
+import { getSiteSettings } from "@/lib/sanity/settings";
 import { defaultSEO } from "@/lib/seo";
 
 const inter = Inter({
@@ -16,7 +18,42 @@ const montserrat = Montserrat({
   variable: "--font-heading",
 });
 
-export const metadata = defaultSEO;
+// Site-wide defaults. The SEO title, description and share image set in the
+// admin panel (Settings → SEO defaults) override the coded ones when present.
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  if (!settings) return defaultSEO;
+
+  const title = settings.defaultSeoTitle || undefined;
+  const description = settings.defaultSeoDescription || undefined;
+  const image = settings.defaultOgImage?.asset?._ref
+    ? {
+        url: urlForImage(settings.defaultOgImage).width(1200).height(630).fit("crop").auto("format").url(),
+        width: 1200,
+        height: 630,
+        alt: settings.defaultOgImage.alt || "MSL Biotech",
+      }
+    : undefined;
+  if (!title && !description && !image) return defaultSEO;
+
+  return {
+    ...defaultSEO,
+    ...(title ? { title: { default: title, template: "%s | MSL Biotech" } } : {}),
+    ...(description ? { description } : {}),
+    openGraph: {
+      ...defaultSEO.openGraph,
+      ...(title ? { title } : {}),
+      ...(description ? { description } : {}),
+      ...(image ? { images: [image] } : {}),
+    },
+    twitter: {
+      ...defaultSEO.twitter,
+      ...(title ? { title } : {}),
+      ...(description ? { description } : {}),
+      ...(image ? { images: [image.url] } : {}),
+    },
+  };
+}
 
 export default function RootLayout({
   children,

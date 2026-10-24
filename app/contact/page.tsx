@@ -127,7 +127,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">Direct Dial</h4>
-                    <a href="tel:+919859757710" className="text-gray-500 hover:text-primary text-xs font-semibold">
+                    <a href="tel:+919859757710" className="text-gray-500 hover:text-primary text-xs font-semibold break-all">
                       +91 98597 57710
                     </a>
                   </div>
@@ -139,8 +139,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">Email Channel</h4>
-                    <a href="mailto:info@mslbiotech.com" className="text-gray-500 hover:text-primary text-xs font-semibold">
-                      info@mslbiotech.com
+                    <a href="mailto:ltdmslbiotechpvt@gmail.com" className="text-gray-500 hover:text-primary text-xs font-semibold break-all">
+                      ltdmslbiotechpvt@gmail.com
                     </a>
                   </div>
                 </div>

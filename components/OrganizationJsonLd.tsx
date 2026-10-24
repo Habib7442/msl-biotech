@@ -24,7 +24,7 @@ export default function OrganizationJsonLd() {
       "@type": "ContactPoint",
       telephone: "+91-98597-57710",
       contactType: "customer service",
-      email: "info@mslbiotech.com",
+      email: "ltdmslbiotechpvt@gmail.com",
       areaServed: "IN",
     },
     identifier: {

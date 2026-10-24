@@ -109,6 +109,22 @@ export const productType = defineType({
       initialValue: false,
       description: "Featured products appear in the homepage highlight strip.",
     }),
+    // Fields below are normally edited in the separate admin panel.
+    defineField({
+      name: "sku",
+      title: "SKU",
+      type: "string",
+      description: "Optional unique stock code.",
+    }),
+    defineField({
+      name: "status",
+      title: "Status",
+      type: "string",
+      options: { list: ["published", "hidden"], layout: "radio" },
+      initialValue: "published",
+      description: "Hidden products stay in Sanity but are not shown on the website.",
+    }),
+    defineField({ name: "seo", title: "SEO", type: "seo" }),
   ],
   preview: {
     select: { title: "name", subtitle: "category", media: "images.0" },

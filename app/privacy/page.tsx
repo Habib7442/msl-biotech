@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
             1. Consent & Compliance (India DPDP Act)
           </h2>
           <p>
-            By submitting information through our contact or product enquiry forms, you explicitly consent to the collection and storage of your personal details (such as Name, Email, and Phone number) by <strong className="font-semibold text-brand-navy">MSL Biotech</strong>. In compliance with India's <strong>Digital Personal Data Protection (DPDP) Act</strong>, we only process data for the explicit purpose of responding to your business inquiries. You retain the right to withdraw your consent or request data correction/erasure at any time by emailing us at <a href="mailto:info@mslbiotech.com" className="text-primary font-semibold hover:underline">info@mslbiotech.com</a>.
+            By submitting information through our contact or product enquiry forms, you explicitly consent to the collection and storage of your personal details (such as Name, Email, and Phone number) by <strong className="font-semibold text-brand-navy">MSL Biotech</strong>. In compliance with India's <strong>Digital Personal Data Protection (DPDP) Act</strong>, we only process data for the explicit purpose of responding to your business inquiries. You retain the right to withdraw your consent or request data correction/erasure at any time by emailing us at <a href="mailto:ltdmslbiotechpvt@gmail.com" className="text-primary font-semibold hover:underline">ltdmslbiotechpvt@gmail.com</a>.
           </p>
 
           <h2 className="font-heading text-lg font-bold text-brand-navy pt-4">

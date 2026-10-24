@@ -123,6 +123,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/blog" className="text-gray-400 hover:text-[#7FC700] text-sm transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className="text-gray-400 hover:text-[#7FC700] text-sm transition-colors">
                   Contact & Enquiries
                 </Link>
@@ -154,10 +159,10 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="size-5 text-[#7FC700] shrink-0" />
                 <a
-                  href="mailto:info@mslbiotech.com"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                  href="mailto:ltdmslbiotechpvt@gmail.com"
+                  className="text-gray-400 hover:text-white text-sm transition-colors break-all"
                 >
-                  info@mslbiotech.com
+                  ltdmslbiotechpvt@gmail.com
                 </a>
               </li>
             </ul>

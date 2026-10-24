@@ -1,7 +1,7 @@
 import { client } from "./client";
 import { urlForImage } from "./image";
 import { PRODUCTS_QUERY, PRODUCT_BY_SLUG_QUERY, PRODUCT_SLUGS_QUERY, PRODUCT_SITEMAP_QUERY } from "./queries";
-import type { Product } from "@/lib/data";
+import type { Product, ProductSeo } from "@/lib/data";
 
 export interface ProductSitemapEntry {
   slug: string;
@@ -16,6 +16,7 @@ interface RawSanityImage {
 
 interface RawSanityProduct {
   _id: string;
+  _updatedAt: string;
   name: string;
   slug: string | null;
   category: string;
@@ -27,6 +28,21 @@ interface RawSanityProduct {
   indications?: string[] | null;
   storage: string;
   featured?: boolean | null;
+  seo?: { title?: string | null; description?: string | null; canonical?: string | null; noindex?: boolean | null } | null;
+}
+
+// Every product read is tagged "product": /api/revalidate expires it the
+// moment the admin panel saves, and ISR re-reads it every 60 s regardless.
+const productFetch = { next: { revalidate: 60, tags: ["product"] } };
+
+function toSeo(raw: RawSanityProduct["seo"]): ProductSeo | undefined {
+  if (!raw) return undefined;
+  return {
+    title: raw.title ?? undefined,
+    description: raw.description ?? undefined,
+    canonical: raw.canonical ?? undefined,
+    noindex: raw.noindex === true,
+  };
 }
 
 function toProduct(raw: RawSanityProduct): Product {
@@ -48,40 +64,27 @@ function toProduct(raw: RawSanityProduct): Product {
     storage: raw.storage,
     featured: Boolean(raw.featured),
     description: raw.description,
+    sanityId: raw._id,
+    updatedAt: raw._updatedAt,
+    seo: toSeo(raw.seo),
   };
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-  const raw = await client.fetch<RawSanityProduct[]>(
-    PRODUCTS_QUERY,
-    {},
-    { next: { revalidate: 60 } }
-  );
+  const raw = await client.fetch<RawSanityProduct[]>(PRODUCTS_QUERY, {}, productFetch);
   return raw.map(toProduct);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  const raw = await client.fetch<RawSanityProduct | null>(
-    PRODUCT_BY_SLUG_QUERY,
-    { slug },
-    { next: { revalidate: 60 } }
-  );
+  const raw = await client.fetch<RawSanityProduct | null>(PRODUCT_BY_SLUG_QUERY, { slug }, productFetch);
   return raw ? toProduct(raw) : null;
 }
 
 export async function getAllProductSlugs(): Promise<string[]> {
-  const slugs = await client.fetch<(string | null)[]>(
-    PRODUCT_SLUGS_QUERY,
-    {},
-    { next: { revalidate: 60 } }
-  );
+  const slugs = await client.fetch<(string | null)[]>(PRODUCT_SLUGS_QUERY, {}, productFetch);
   return slugs.filter((slug): slug is string => Boolean(slug));
 }
 
 export async function getAllProductsForSitemap(): Promise<ProductSitemapEntry[]> {
-  return client.fetch<ProductSitemapEntry[]>(
-    PRODUCT_SITEMAP_QUERY,
-    {},
-    { next: { revalidate: 60 } }
-  );
+  return client.fetch<ProductSitemapEntry[]>(PRODUCT_SITEMAP_QUERY, {}, productFetch);
 }
