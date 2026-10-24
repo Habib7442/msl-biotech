@@ -1,3 +1,4 @@
+import JsonLd from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/seo";
 
 // Structured data (schema.org Organization) for search engines. Every field
@@ -34,10 +35,5 @@ export default function OrganizationJsonLd() {
     },
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <JsonLd data={data} />;
 }

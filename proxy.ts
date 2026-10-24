@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { normalizePath, redirectTarget } from "@/lib/redirects";
 import { apiVersion, dataset, projectId } from "@/lib/sanity/env";
 
 // Redirects managed in the admin panel (Settings → Redirects; slug changes
@@ -13,15 +14,13 @@ const TTL_MS = 60_000;
 let cache: { at: number; rules: Map<string, Rule> } | null = null;
 let inflight: Promise<Map<string, Rule>> | null = null;
 
-const normalize = (path: string) => (path.length > 1 ? path.replace(/\/+$/, "") : path).toLowerCase();
-
 async function loadRules(): Promise<Map<string, Rule>> {
   const query = encodeURIComponent(`*[_id == "siteSettings"][0].redirects[defined(from) && defined(to)]{ from, to, permanent }`);
   const url = `https://${projectId}.apicdn.sanity.io/v${apiVersion}/data/query/${dataset}?query=${query}`;
   const res = await fetch(url, { signal: AbortSignal.timeout(1500) });
   if (!res.ok) throw new Error(`Sanity ${res.status}`);
   const { result } = (await res.json()) as { result: Rule[] | null };
-  return new Map((result ?? []).filter((r) => r.from.startsWith("/")).map((r) => [normalize(r.from), r]));
+  return new Map((result ?? []).filter((r) => r.from.startsWith("/")).map((r) => [normalizePath(r.from), r]));
 }
 
 async function getRules(): Promise<Map<string, Rule>> {
@@ -50,10 +49,12 @@ export async function proxy(request: NextRequest) {
   const rules = await getRules();
   if (!rules.size) return NextResponse.next();
 
-  const rule = rules.get(normalize(request.nextUrl.pathname));
+  const rule = rules.get(normalizePath(request.nextUrl.pathname));
   if (!rule) return NextResponse.next();
 
-  const target = rule.to.startsWith("/") ? new URL(rule.to, request.url) : new URL(rule.to);
+  const target = redirectTarget(rule.to, request.url);
+  // A bad rule (typo in Studio, loop) must never break the page: serve it normally.
+  if (!target) return NextResponse.next();
   // Keep the visitor's query string (e.g. utm tags) unless the target sets its own.
   if (!target.search && request.nextUrl.search) target.search = request.nextUrl.search;
   return NextResponse.redirect(target, rule.permanent === false ? 307 : 308);

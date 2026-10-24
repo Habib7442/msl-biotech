@@ -45,7 +45,20 @@ export const postType = defineType({
       initialValue: "draft",
       description: "Published with a future publish date = scheduled.",
     }),
-    defineField({ name: "publishedAt", title: "Publish date", type: "datetime" }),
+    defineField({
+      name: "publishedAt",
+      title: "Publish date",
+      type: "datetime",
+      // The site only lists posts with publishedAt <= now() (LIVE_POST in
+      // lib/sanity/queries.ts), so a published post without a date would
+      // never appear. The admin panel fills it in; Studio has to ask.
+      validation: (Rule) =>
+        Rule.custom((value, context) =>
+          (context.document as { status?: string } | undefined)?.status === "published" && !value
+            ? "Set a publish date for published posts."
+            : true
+        ),
+    }),
     defineField({ name: "updatedAt", title: "Updated date", type: "datetime" }),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
     defineField({ name: "secondaryKeywords", title: "Secondary keywords", type: "array", of: [{ type: "string" }], options: { layout: "tags" } }),

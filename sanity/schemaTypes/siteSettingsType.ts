@@ -37,8 +37,27 @@ export const siteSettingsType = defineType({
           type: "object",
           name: "redirect",
           fields: [
-            defineField({ name: "from", title: "From (path)", type: "string" }),
-            defineField({ name: "to", title: "To (path or URL)", type: "string" }),
+            // Same rules the admin panel enforces; proxy.ts also ignores bad targets.
+            defineField({
+              name: "from",
+              title: "From (path)",
+              type: "string",
+              validation: (Rule) =>
+                Rule.required().custom((value) =>
+                  typeof value === "string" && /^\/(?![/\\])\S*$/.test(value) ? true : "Use a path on this site, e.g. /old-page"
+                ),
+            }),
+            defineField({
+              name: "to",
+              title: "To (path or URL)",
+              type: "string",
+              validation: (Rule) =>
+                Rule.required().custom((value) =>
+                  typeof value === "string" && /^(\/(?![/\\])|https?:\/\/)\S*$/.test(value)
+                    ? true
+                    : "Use a path starting with / or a full URL starting with https://"
+                ),
+            }),
             defineField({ name: "permanent", title: "Permanent", type: "boolean", initialValue: true }),
           ],
           preview: { select: { title: "from", subtitle: "to" } },
