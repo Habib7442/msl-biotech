@@ -57,6 +57,7 @@ export const POSTS_PAGE_QUERY = groq`{
 
 export const POST_BY_SLUG_QUERY = groq`*[${LIVE_POST} && slug.current == $slug][0]{
   ${POST_CARD_FIELDS},
+  content,
   body,
   tags,
   seo { title, description, canonical, noindex },

@@ -23,6 +23,7 @@ export interface PostCard {
 
 export interface Post extends PostCard {
   body: string;
+  content?: string | null;
   tags: string[] | null;
   seo: { title?: string; description?: string; canonical?: string; noindex?: boolean } | null;
   og: { title?: string; description?: string; image?: SanityImageWithAlt } | null;

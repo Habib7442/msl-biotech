@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AlertTriangle, ArrowLeft, ChevronRight } from "lucide-react";
 import ArticleBody from "@/components/blog/ArticleBody";
+import ArticleHtml from "@/components/blog/ArticleHtml";
+import { htmlText } from "@/lib/html";
 import PostCard from "@/components/blog/PostCard";
 import JsonLd from "@/components/JsonLd";
 import { urlForImage } from "@/lib/sanity/image";
@@ -148,7 +150,7 @@ export default async function ArticlePage({ params }: Props) {
                 </>
               ) : null}
               <span aria-hidden="true">·</span>
-              <span>{readingMinutes(post.body)} min read</span>
+              <span>{readingMinutes(post.content ? htmlText(post.content) : post.body)} min read</span>
             </p>
           </header>
 
@@ -159,7 +161,7 @@ export default async function ArticlePage({ params }: Props) {
           ) : null}
 
           <div className="mt-10">
-            <ArticleBody markdown={post.body} />
+            {post.content ? <ArticleHtml html={post.content} /> : <ArticleBody markdown={post.body} />}
           </div>
 
           {post.tags?.length ? (
