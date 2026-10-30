@@ -60,6 +60,24 @@
   - **Admin side:** the Settings page was reduced to Contact details, Social media links and Moved pages (redirects) for non-technical staff. SEO defaults, share image and sitemap exclusions were removed from the form, are never touched by its save, and stay editable in Studio.
   - **Verified:** a 16-check end-to-end test (admin save → website on all pages + JSON-LD; fallback on clear; hidden field preserved).
 
+- [x] Unit 19 (2026-10-30): Google Analytics 4 (`G-MZ47FBJ9YF`).
+  - **How it loads:** `@next/third-parties` `<GoogleAnalytics>`, rendered by `SiteChrome` and fed by `lib/analytics.ts`. It loads `gtag.js` after hydration.
+  - **What's counted:** public pages only, not the `/admin` Studio. Production only, not Vercel previews or `npm run dev`.
+  - **Navigation:** client-side page changes are counted by GA4's enhanced measurement (history events).
+  - **Verified in a browser:** tag and config load, exactly one `page_view` per page including client navigation, nothing on `/admin`. Hits were blocked in the test, so no fake visits were recorded.
+  - **Consent (DPDP Act 2023):** GA loads **only after "Accept"**.
+    - `components/ConsentBanner.tsx` shows equal-size Reject/Accept buttons, and the site works either way.
+    - The choice is kept in `localStorage` (`lib/consent.ts`).
+    - "Cookie settings" in the footer and the privacy page reopens the banner. Withdrawing sets Google's `ga-disable-<id>` flag and deletes the `_ga*` cookies, so tracking stops immediately.
+  - **Privacy policy rewritten to match what the site really does:**
+    - Removed false claims: enquiry data "stored on encrypted servers" (the forms store nothing and open WhatsApp), pre-existing analytics, and "essential cookies".
+    - Added reviews, analytics (with consent), processors and cross-border transfer, security and breach notice, DPDP rights (access, correction, erasure, withdrawal, nomination), the grievance contact plus the Data Protection Board of India, children (18+), and the notice in Eighth Schedule languages on request.
+  - **Review form:** the consent checkbox now confirms the reviewer is 18 or older (DPDP: verifiable parental consent is needed for children).
+  - **Verified:** a 20-check consent test in a browser (Google hits blocked).
+  - **Open issues:**
+    - The footer "Subscribe to Health Updates" form is fake: it shows "Subscribed!" but stores and sends nothing. Either connect it to a real mailing list (and add it to the privacy policy, with consent) or remove it.
+    - A lawyer should review the policy before launch.
+
 ## In Progress
 - None.
 

@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
   if (title.length > 100) fieldErrors.title = "Keep the title under 100 characters.";
   if (body.length < 10 || body.length > 2000) fieldErrors.body = "Write between 10 and 2000 characters.";
   if ((body.match(/https?:\/\/|www\./gi) ?? []).length > 2) fieldErrors.body = "Please remove the links from your review.";
-  if (payload.consent !== true) fieldErrors.consent = "Please confirm so we can publish your review.";
+  if (payload.consent !== true) fieldErrors.consent = "Please confirm you are 18 or older and agree, so we can publish your review.";
   if (!/^[A-Za-z0-9_-]{1,128}$/.test(productId)) return fail("This product could not be found.", 404);
   if (Object.keys(fieldErrors).length) return fail("Please fix the highlighted fields.", 400, fieldErrors);
 

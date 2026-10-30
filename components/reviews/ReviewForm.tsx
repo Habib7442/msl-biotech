@@ -57,7 +57,7 @@ export default function ReviewForm({ productId, productName }: ReviewFormProps) 
     if (!rating) next.rating = "Choose a star rating.";
     if (name.length < 2) next.name = "Enter your name.";
     if (body.length < 10) next.body = "Write at least a sentence (10+ characters).";
-    if (!form.get("consent")) next.consent = "Please confirm so we can publish your review.";
+    if (!form.get("consent")) next.consent = "Please confirm you are 18 or older and agree, so we can publish your review.";
     setErrors(next);
     if (Object.keys(next).length) return;
 
@@ -188,8 +188,10 @@ export default function ReviewForm({ productId, productName }: ReviewFormProps) 
             className="mt-0.5 size-4 accent-primary shrink-0"
           />
           <span>
-            I agree that my name and review may be published on this website after moderation, as described in the{" "}
-            <a href="/privacy" className="text-primary underline">Privacy Policy</a>.
+            I am 18 or older, and I agree that my name and review may be published on this website after moderation, as
+            described in the{" "}
+            <a href="/privacy#reviews" className="text-primary underline">Privacy Policy</a>. I can ask for it to be
+            removed at any time.
           </span>
         </label>
         {errors.consent ? <p id="review-consent-error" className="mt-1 text-xs text-red-600">{errors.consent}</p> : null}
