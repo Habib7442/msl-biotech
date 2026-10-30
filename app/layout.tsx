@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import SiteChrome from "@/components/SiteChrome";
 
 import { urlForImage } from "@/lib/sanity/image";
+import { analyticsId } from "@/lib/analytics";
 import { getSiteContact, getSiteSettings } from "@/lib/sanity/settings";
 import { defaultSEO } from "@/lib/seo";
 
@@ -74,7 +75,7 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-[#F4F7FB] text-[#12213F]">
-        <SiteChrome contact={contact}>{children}</SiteChrome>
+        <SiteChrome contact={contact} analyticsId={analyticsId()}>{children}</SiteChrome>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import ConsentBanner from "@/components/ConsentBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContact from "@/components/FloatingContact";
@@ -13,19 +14,24 @@ import type { SiteContact } from "@/lib/contact";
 
 interface SiteChromeProps {
   contact: SiteContact;
+  /** GA4 measurement ID, or null where visits shouldn't be counted (see lib/analytics.ts). */
+  analyticsId: string | null;
   children: React.ReactNode;
 }
 
-export default function SiteChrome({ contact, children }: SiteChromeProps) {
+export default function SiteChrome({ contact, analyticsId, children }: SiteChromeProps) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
+  // The embedded Sanity Studio gets no analytics: staff editing isn't a visit.
   if (isAdmin) {
     return <>{children}</>;
   }
 
   return (
     <ContactProvider contact={contact}>
+      {/* Asks first; Google Analytics loads only after "Accept" (DPDP Act). */}
+      <ConsentBanner analyticsId={analyticsId} />
       <OrganizationJsonLd contact={contact} />
       <Preloader />
       <SmoothScroll>

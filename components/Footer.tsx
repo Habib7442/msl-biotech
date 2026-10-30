@@ -8,6 +8,7 @@ import { CATEGORIES } from "@/lib/data";
 import { useContact } from "@/components/ContactProvider";
 import { telHref } from "@/lib/contact";
 import SocialLinks from "@/components/SocialLinks";
+import { CookieSettingsButton } from "@/components/ConsentBanner";
 
 export default function Footer() {
   const contact = useContact();
@@ -198,6 +199,7 @@ export default function Footer() {
             <Link href="/disclaimer" className="hover:text-white transition-colors">
               Medical Disclaimer
             </Link>
+            <CookieSettingsButton className="hover:text-white transition-colors cursor-pointer" />
           </div>
         </div>
 
